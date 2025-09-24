@@ -1,0 +1,51 @@
+id,name,description,rowCount,columnCount,fileSize,format,domain,lastModified,quality_score,completeness
+ds-001,Chemical Reaction Dataset,Time-series data of temperature and pressure measurements during catalytic reactions,2547,8,524288,CSV,Chemistry,2024-03-15,0.89,94
+ds-002,Materials Properties Database,Comprehensive collection of mechanical and thermal properties for engineering materials,8934,15,2097152,JSON,Materials,2024-03-10,0.95,98
+ds-003,Environmental Sensor Network,Multi-location environmental monitoring data including air quality and weather,15623,12,4194304,Parquet,Environmental,2024-03-18,0.87,91
+ds-004,Protein Structure Analysis,3D coordinates and binding affinity data for protein-ligand interactions,1245,6,1048576,HDF5,Biology,2024-03-12,0.92,96
+ds-005,Solar Panel Efficiency,Performance metrics and degradation patterns of photovoltaic cells over time,3456,10,1572864,CSV,Environmental,2024-03-20,0.88,93
+ds-006,Quantum Dot Synthesis,Process parameters and optical properties of semiconductor nanoparticles,892,9,786432,JSON,Physics,2024-03-08,0.91,97
+ds-007,Water Treatment Plant,Daily operational data from municipal water treatment facilities,7234,18,3145728,Parquet,Environmental,2024-03-22,0.86,89
+ds-008,Polymer Characterization,Molecular weight distributions and thermal analysis of synthetic polymers,2156,11,1310720,CSV,Materials,2024-03-14,0.94,99
+ds-009,Atmospheric Chemistry Model,Simulated ozone concentrations and photochemical reactions in urban environments,5678,14,2621440,HDF5,Chemistry,2024-03-16,0.90,95
+ds-010,Geological Survey Data,Mineral composition and structural geology measurements from core samples,3421,13,1835008,JSON,Environmental,2024-03-11,0.85,87
+ds-011,Enzyme Kinetics Study,Michaelis-Menten parameters and inhibition constants for metabolic enzymes,1567,7,917504,CSV,Biology,2024-03-19,0.93,98
+ds-012,Nanomaterial Toxicity,Cytotoxicity assays and cellular uptake studies for engineered nanoparticles,2834,16,2359296,Parquet,Materials,2024-03-17,0.89,92
+ds-013,Climate Model Projections,Regional temperature and precipitation forecasts under different emission scenarios,12456,20,6291456,HDF5,Environmental,2024-03-21,0.87,90
+ds-014,Spectroscopy Database,UV-Vis and IR spectra of organic compounds with structural annotations,4523,8,2097152,JSON,Chemistry,2024-03-09,0.96,99
+ds-015,Bioprocess Optimization,Fermentation parameters and metabolite concentrations in bioreactor studies,1789,12,1245184,CSV,Biology,2024-03-13,0.91,96
+ds-016,Semiconductor Devices,Electrical characteristics and failure analysis of transistors and diodes,3267,9,1703936,Parquet,Physics,2024-03-07,0.88,94
+ds-017,Corrosion Testing Results,Electrochemical impedance and weight loss measurements for metal alloys,2145,11,1441792,JSON,Materials,2024-03-23,0.92,97
+ds-018,Atmospheric Pollutants,Ground-level measurements of PM2.5, NOx, and volatile organic compounds,8765,17,4718592,CSV,Environmental,2024-03-06,0.84,86
+ds-019,Crystal Growth Dynamics,Time-resolved imaging and diffraction patterns during crystallization processes,1876,10,1179648,HDF5,Chemistry,2024-03-25,0.90,95
+ds-020,Microbial Communities,16S rRNA sequencing data from environmental and clinical samples,6543,22,5242880,Parquet,Biology,2024-03-04,0.87,91
+ds-021,Photovoltaic Materials,Bandgap measurements and efficiency calculations for perovskite solar cells,2987,8,1638400,JSON,Physics,2024-03-26,0.95,98
+ds-022,Wastewater Analysis,Chemical oxygen demand and nutrient levels in municipal and industrial effluents,4321,15,2883584,CSV,Environmental,2024-03-05,0.86,89
+ds-023,Composite Materials,Mechanical testing results for fiber-reinforced polymer composites,1654,13,1376256,Parquet,Materials,2024-03-24,0.93,96
+ds-024,Reaction Mechanisms,Computational chemistry calculations of activation energies and transition states,987,6,655360,HDF5,Chemistry,2024-03-03,0.91,94
+ds-025,Ecological Monitoring,Biodiversity indices and population dynamics in protected forest areas,5432,19,3932160,JSON,Biology,2024-03-27,0.88,92
+ds-026,Laser Spectroscopy,High-resolution molecular spectra and rotational constants for diatomic molecules,2398,7,1507328,CSV,Physics,2024-03-02,0.94,97
+ds-027,Air Quality Network,Real-time measurements from distributed sensor arrays in metropolitan areas,9876,21,7340032,Parquet,Environmental,2024-03-28,0.85,88
+ds-028,Battery Performance,Charge-discharge cycles and capacity retention for lithium-ion batteries,3654,14,2490368,HDF5,Materials,2024-03-01,0.89,93
+ds-029,Biochemical Pathways,Metabolomics profiling and pathway analysis from cellular extracts,2765,16,2097152,JSON,Chemistry,2024-03-29,0.92,95
+ds-030,Seismic Activity,Earthquake magnitude and frequency data from regional monitoring networks,4567,11,3145728,CSV,Environmental,2024-02-28,0.87,90
+ds-031,Optical Properties,Refractive index and absorption coefficients for transparent ceramics,1432,9,1048576,Parquet,Physics,2024-03-30,0.96,99
+ds-032,Plant Physiology,Photosynthesis rates and stomatal conductance under different CO2 concentrations,2198,12,1572864,HDF5,Biology,2024-02-27,0.90,94
+ds-033,Catalysis Screening,Activity and selectivity measurements for heterogeneous catalysts,3876,10,2621440,JSON,Chemistry,2024-03-31,0.93,97
+ds-034,Urban Heat Island,Temperature mapping and building energy consumption in city districts,6789,18,5242880,CSV,Environmental,2024-02-26,0.84,87
+ds-035,Metamaterials Design,Electromagnetic properties and resonance frequencies of structured materials,1567,8,1245184,Parquet,Physics,2024-04-01,0.91,96
+ds-036,Drug Discovery,Molecular docking scores and pharmacokinetic properties of potential therapeutics,4321,17,3670016,HDF5,Biology,2024-02-25,0.88,91
+ds-037,Electrochemical Cells,Voltage-current characteristics and efficiency measurements for fuel cells,2543,13,1835008,JSON,Chemistry,2024-04-02,0.95,98
+ds-038,Forest Carbon Cycle,Biomass estimates and carbon sequestration rates in temperate forests,5678,16,4194304,CSV,Environmental,2024-02-24,0.86,89
+ds-039,Magnetic Materials,Hysteresis loops and Curie temperatures for ferromagnetic compounds,1876,7,1310720,Parquet,Materials,2024-04-03,0.92,95
+ds-040,Genomic Variants,Single nucleotide polymorphisms and structural variations in human populations,8934,25,8388608,HDF5,Biology,2024-02-23,0.89,92
+ds-041,Surface Chemistry,X-ray photoelectron spectroscopy data for catalyst surface characterization,2367,9,1703936,JSON,Chemistry,2024-04-04,0.94,96
+ds-042,Coastal Erosion,Shoreline change measurements and sediment transport patterns,3456,14,2883584,CSV,Environmental,2024-02-22,0.87,90
+ds-043,Superconductors,Critical temperature and magnetic field measurements for high-Tc materials,1234,6,917504,Parquet,Physics,2024-04-05,0.93,97
+ds-044,Tissue Engineering,Cell viability and proliferation on biocompatible scaffold materials,2987,15,2359296,HDF5,Biology,2024-02-21,0.90,94
+ds-045,Green Chemistry,Atom economy and environmental impact assessment of synthetic reactions,1789,11,1441792,JSON,Chemistry,2024-04-06,0.96,99
+ds-046,Groundwater Quality,Contaminant concentrations and hydrogeological parameters in aquifer systems,4567,19,3932160,CSV,Environmental,2024-02-20,0.85,88
+ds-047,Quantum Computing,Qubit coherence times and gate fidelities for superconducting circuits,987,8,786432,Parquet,Physics,2024-04-07,0.91,95
+ds-048,Stem Cell Biology,Differentiation markers and gene expression profiles during organogenesis,3654,23,6291456,HDF5,Biology,2024-02-19,0.88,91
+ds-049,Process Intensification,Heat and mass transfer coefficients in microreactor systems,2145,12,1638400,JSON,Chemistry,2024-04-08,0.92,96
+ds-050,Renewable Energy Grid,Power generation and demand patterns for wind and solar installations,7234,20,5767168,CSV,Environmental,2024-02-18,0.86,89
