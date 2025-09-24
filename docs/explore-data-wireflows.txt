@@ -1,0 +1,60 @@
+ASCII WIREFLOW:
+
+[INDEX] --applyFilter--> [INDEX]                    // state-only mutation
+[INDEX] --updateSearch--> [INDEX]                   // state-only mutation
+[INDEX] --selectDataset--> [INDEX]                  // state-only mutation
+[INDEX] --navigateToDetail(id)--> [DETAIL]          // guard: selectedIds.length > 0
+[INDEX] --navigateToVisualize(id)--> [VISUALIZE]    // guard: selectedIds.length > 0
+[DETAIL] --navigateBack--> [INDEX]                  // always
+[VISUALIZE] --updateChartConfig--> [VISUALIZE]      // state-only mutation
+[VISUALIZE] --navigateBack--> [INDEX]               // always
+
+
+ASCII SCREENS:
+
+INDEX SCREEN (explore-data)
++--------------------------------------------------------+
+| Header: Explore Datasets + Search Bar (ed-header)     |
++-------------------+------------------------------------+
+| Filters Panel     | Data Grid: datasets table         |
+| (ed-filters)      | (ed-grid)                         |
+| - Format          +------------------------------------+
+| - Domain          | Preview Panel: selected dataset   |
+| - Row Count       | metadata + sample (ed-preview)    |
+| - Quality Score   |                                   |
+| [Apply Filters]   |                                   |
++-------------------+------------------------------------+
+| Primary Actions: [View Details] [Visualize] (ed-actions) |
++--------------------------------------------------------+
+
+DETAIL SCREEN (explore-data/detail/:id)
++--------------------------------------------------------+
+| Header: [← Back] Dataset Name + Actions (ed-header)   |
++-------------------+------------------------------------+
+| Metadata Panel    | Statistics Panel                   |
+| (ed-metadata)     | (ed-statistics)                   |
+| - Description     | - Row/Column counts               |
+| - File info       | - Data quality metrics            |
+| - Domain          | - Completeness stats              |
+| - Last modified   | - Missing value analysis          |
++-------------------+------------------------------------+
+| Sample Data Grid: first 100 rows (ed-grid)           |
++--------------------------------------------------------+
+| Secondary Actions: [Download] [Export Metadata]       |
++--------------------------------------------------------+
+
+VISUALIZE SCREEN (explore-data/visualize/:id)
++--------------------------------------------------------+
+| Header: [← Back] Dataset Visualization (ed-header)    |
++--------------------------------------------------------+
+| Chart Controls (ed-controls)                          |
+| Type: [Scatter▼] X-Axis: [Temperature▼] Y-Axis: [Pressure▼] |
++-------------------+------------------------------------+
+| Plotly Chart      | Data Summary                      |
+| (ed-chart)        | (ed-summary)                      |
+| Interactive plot  | - Selected points: N              |
+| with zoom/pan     | - Statistics                      |
+| and selection     | - Correlation info                |
++-------------------+------------------------------------+
+| Visualization Actions: [Export Chart] [Save Config]   |
++--------------------------------------------------------+

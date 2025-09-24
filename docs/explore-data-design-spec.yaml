@@ -1,0 +1,382 @@
+design_spec:
+  metadata:
+    title: "Dataset Explorer"
+    task_flow_type: "explore-data"
+    domain: "Data Science and Visualization"
+    description: "Browse, filter, and preview scientific datasets with interactive visualizations"
+    schema_version: "1.0.0"
+
+  routes:
+    - name: "index"
+      path: "/explore-data"
+      layout: "root"
+      children:
+        - name: "detail"
+          path: "detail/:id"
+        - name: "visualize"
+          path: "visualize/:id"
+
+  screens:
+    - id: "index"
+      purpose: "Browse and filter dataset collection with preview capabilities"
+      primary_components: ["PageHeader","FiltersPanel","DataGrid","PreviewPanel","PrimaryActions"]
+      data_bindings:
+        source: "datasets.main"
+        id_field: "id"
+      inputs: ["filters","selection","searchTerm"]
+      outputs: ["selectedIds","filteredData"]
+      regions:
+        header: ["title","description","searchBar"]
+        left: ["FiltersPanel"]
+        main: ["DataGrid","PreviewPanel"]
+        footer: ["PrimaryActions"]
+
+    - id: "detail"
+      purpose: "View detailed metadata and statistics for a specific dataset"
+      primary_components: ["PageHeader","MetadataPanel","StatisticsPanel","SampleDataGrid"]
+      data_bindings:
+        source: "datasets.detail"
+        id_field: "id"
+      inputs: ["datasetId"]
+      outputs: ["datasetInfo"]
+      regions:
+        header: ["backButton","title","actions"]
+        main: ["MetadataPanel","StatisticsPanel","SampleDataGrid"]
+        footer: ["SecondaryActions"]
+
+    - id: "visualize"
+      purpose: "Interactive visualization and analysis of dataset"
+      primary_components: ["PageHeader","ChartControls","PlotlyChart","DataSummary"]
+      data_bindings:
+        source: "datasets.visualization"
+        id_field: "id"
+      inputs: ["chartType","selectedColumns","filters"]
+      outputs: ["chartConfig","analysisResults"]
+      regions:
+        header: ["backButton","title","chartControls"]
+        main: ["PlotlyChart","DataSummary"]
+        footer: ["VisualizationActions"]
+
+  state:
+    types:
+      SelectedId: "string"
+      Filter: "{ field: string; op: string; value: any }"
+      DatasetInfo: "{ id: string; name: string; description: string; rowCount: number; columns: string[]; lastModified: string; fileSize: number; format: string }"
+      ChartConfig: "{ type: string; xAxis: string; yAxis: string; groupBy?: string }"
+    initial:
+      selectedIds: []
+      filters: []
+      searchTerm: ""
+      currentDataset: null
+      chartConfig: { type: "scatter", xAxis: "", yAxis: "" }
+      loading: false
+      error: null
+      previewData: []
+    derived:
+      filteredRows: "datasets filtered by filters and searchTerm"
+      selectedDataset: "currentDataset details and statistics"
+      visualizationData: "processed data for charts based on chartConfig"
+
+  actions:
+    - name: "applyFilter"
+      kind: "filter"
+      payload: "{ field: string; op: string; value: any }"
+      preconditions: []
+      state_mutations:
+        - "filters = update(filters, payload)"
+      side_effects: []
+      triggers:
+        component: "FiltersPanel"
+        on: "change"
+        testid: "filters-apply"
+
+    - name: "updateSearch"
+      kind: "search"
+      payload: "{ term: string }"
+      preconditions: []
+      state_mutations:
+        - "searchTerm = payload.term"
+      side_effects: []
+      triggers:
+        component: "SearchBar"
+        on: "input"
+        testid: "search-input"
+
+    - name: "selectDataset"
+      kind: "select"
+      payload: "{ id: string }"
+      preconditions: ["id in filteredRows"]
+      state_mutations:
+        - "selectedIds = [payload.id]"
+        - "previewData = loadPreview(payload.id)"
+      side_effects: []
+      triggers:
+        component: "DataGrid"
+        on: "rowClick"
+        testid: "grid-row"
+
+    - name: "navigateToDetail"
+      kind: "navigate"
+      payload: "{ id: string }"
+      preconditions: ["id in selectedIds || id in filteredRows"]
+      state_mutations: []
+      side_effects:
+        - "route.push('/explore-data/detail/'+id)"
+      triggers:
+        component: "PrimaryActions"
+        on: "click"
+        testid: "view-detail-button"
+
+    - name: "navigateToVisualize"
+      kind: "navigate"
+      payload: "{ id: string }"
+      preconditions: ["id in selectedIds || id in filteredRows"]
+      state_mutations: []
+      side_effects:
+        - "route.push('/explore-data/visualize/'+id)"
+      triggers:
+        component: "PrimaryActions"
+        on: "click"
+        testid: "visualize-button"
+
+    - name: "loadDatasetDetail"
+      kind: "load"
+      payload: "{ id: string }"
+      preconditions: []
+      state_mutations:
+        - "loading = true"
+        - "currentDataset = null"
+      side_effects:
+        - "async/loadDataset(id) -> dispatch('finishLoadDetail')"
+      triggers:
+        component: "system"
+        on: "routeChange"
+        testid: null
+
+    - name: "finishLoadDetail"
+      kind: "load"
+      payload: "{ dataset: DatasetInfo }"
+      preconditions: ["loading === true"]
+      state_mutations:
+        - "loading = false"
+        - "currentDataset = payload.dataset"
+      side_effects: []
+      triggers:
+        component: "system"
+        on: "asyncComplete"
+        testid: null
+
+    - name: "updateChartConfig"
+      kind: "config"
+      payload: "{ config: ChartConfig }"
+      preconditions: []
+      state_mutations:
+        - "chartConfig = payload.config"
+      side_effects: []
+      triggers:
+        component: "ChartControls"
+        on: "change"
+        testid: "chart-controls"
+
+  userflow:
+    nodes: ["index","detail","visualize"]
+    edges:
+      - from: "index"
+        action: "applyFilter"
+        to: "index"
+        guard: "state.filters change"
+      - from: "index"
+        action: "updateSearch"
+        to: "index"
+        guard: "state.searchTerm change"
+      - from: "index"
+        action: "selectDataset"
+        to: "index"
+        guard: "valid dataset id"
+      - from: "index"
+        action: "navigateToDetail"
+        to: "detail"
+        guard: "selectedIds.length > 0"
+      - from: "index"
+        action: "navigateToVisualize"
+        to: "visualize"
+        guard: "selectedIds.length > 0"
+      - from: "detail"
+        action: "navigateBack"
+        to: "index"
+        guard: "always"
+      - from: "visualize"
+        action: "updateChartConfig"
+        to: "visualize"
+        guard: "state.chartConfig change"
+      - from: "visualize"
+        action: "navigateBack"
+        to: "index"
+        guard: "always"
+
+  data_models:
+    - name: "DatasetRow"
+      id: "id"
+      fields:
+        - { name: "name", type: "string" }
+        - { name: "description", type: "string" }
+        - { name: "rowCount", type: "number" }
+        - { name: "columnCount", type: "number" }
+        - { name: "fileSize", type: "number", unit: "bytes" }
+        - { name: "format", type: "string" }
+        - { name: "domain", type: "string" }
+        - { name: "lastModified", type: "string" }
+        - { name: "quality_score", type: "number", unit: "0-1" }
+        - { name: "completeness", type: "number", unit: "percent" }
+
+    - name: "SampleData"
+      id: "rowId"
+      fields:
+        - { name: "temperature", type: "number", unit: "celsius" }
+        - { name: "pressure", type: "number", unit: "bar" }
+        - { name: "concentration", type: "number", unit: "mol/L" }
+        - { name: "ph_level", type: "number", unit: "pH" }
+        - { name: "timestamp", type: "string" }
+
+  mock_data:
+    seed: 1337
+    datasets:
+      - name: "main"
+        file: "public/data/explore-data-main.csv"
+        rows: 50
+        schema:
+          - { name: "id", type: "string" }
+          - { name: "name", type: "string" }
+          - { name: "description", type: "string" }
+          - { name: "rowCount", type: "number", range: [100, 10000] }
+          - { name: "columnCount", type: "number", range: [5, 25] }
+          - { name: "fileSize", type: "number", range: [1024, 104857600] }
+          - { name: "format", type: "string", values: ["CSV","JSON","Parquet","HDF5"] }
+          - { name: "domain", type: "string", values: ["Chemistry","Physics","Biology","Environmental","Materials"] }
+          - { name: "lastModified", type: "string" }
+          - { name: "quality_score", type: "number", range: [0.6, 1.0] }
+          - { name: "completeness", type: "number", range: [85, 100] }
+
+      - name: "sample"
+        file: "public/data/explore-data-sample.csv"
+        rows: 200
+        schema:
+          - { name: "rowId", type: "string" }
+          - { name: "datasetId", type: "string" }
+          - { name: "temperature", type: "number", range: [20, 80] }
+          - { name: "pressure", type: "number", range: [1, 10] }
+          - { name: "concentration", type: "number", range: [0.1, 5.0] }
+          - { name: "ph_level", type: "number", range: [4, 9] }
+          - { name: "timestamp", type: "string" }
+
+    invariants:
+      - "id unique in main"
+      - "rowId unique in sample"
+      - "range(quality_score) within [0,1]"
+      - "completeness >= 0 and <= 100"
+
+  config_hints:
+    columns:
+      - { field: "name", headerName: "Dataset Name", width: 250 }
+      - { field: "description", headerName: "Description", width: 300 }
+      - { field: "rowCount", headerName: "Rows", width: 120, type: "number" }
+      - { field: "columnCount", headerName: "Columns", width: 120, type: "number" }
+      - { field: "fileSize", headerName: "Size", width: 120, type: "fileSize" }
+      - { field: "format", headerName: "Format", width: 100 }
+      - { field: "domain", headerName: "Domain", width: 150 }
+      - { field: "quality_score", headerName: "Quality", width: 120, type: "progress" }
+      - { field: "completeness", headerName: "Complete", width: 120, type: "percent" }
+
+    filters:
+      - { field: "format", type: "select", optionsFrom: "main.format" }
+      - { field: "domain", type: "select", optionsFrom: "main.domain" }
+      - { field: "rowCount", type: "range", min: 0, max: 10000 }
+      - { field: "quality_score", type: "range", min: 0, max: 1, step: 0.1 }
+
+    routes_title:
+      index: "Explore Datasets"
+      detail: "Dataset Details"
+      visualize: "Dataset Visualization"
+
+  test_ids:
+    regions:
+      header: "ed-header"
+      filters: "ed-filters"
+      grid: "ed-grid"
+      preview: "ed-preview"
+      actions: "ed-actions"
+      metadata: "ed-metadata"
+      statistics: "ed-statistics"
+      chart: "ed-chart"
+      controls: "ed-controls"
+
+    controls:
+      searchInput: "search-input"
+      filtersApply: "filters-apply"
+      gridRow: "grid-row"
+      viewDetailButton: "view-detail-button"
+      visualizeButton: "visualize-button"
+      backButton: "back-button"
+      chartControls: "chart-controls"
+      chartTypeSelect: "chart-type-select"
+      xAxisSelect: "x-axis-select"
+      yAxisSelect: "y-axis-select"
+
+  test_plan:
+    unit_vitest:
+      - name: "reducers mutate state predictably"
+        targets: ["actions.applyFilter","actions.updateSearch","actions.selectDataset"]
+        asserts:
+          - "adding filter increases filters.length"
+          - "updateSearch changes searchTerm"
+          - "selectDataset updates selectedIds and previewData"
+
+      - name: "selectors derive filteredRows correctly"
+        targets: ["state.derived.filteredRows"]
+        asserts:
+          - "rows reduced when filters applied"
+          - "rows reduced when searchTerm applied"
+          - "empty filters return all rows"
+
+      - name: "async actions handle loading states"
+        targets: ["actions.loadDatasetDetail","actions.finishLoadDetail"]
+        asserts:
+          - "loadDatasetDetail sets loading=true"
+          - "finishLoadDetail sets loading=false and currentDataset"
+
+    e2e_cypress:
+      - name: "loads index and shows header"
+        path: "/explore-data"
+        steps:
+          - "cy.visit()"
+          - "cy.get('[data-testid=\"ed-header\"]').should('exist')"
+          - "cy.get('[data-testid=\"ed-grid\"]').should('exist')"
+
+      - name: "can search and filter datasets"
+        steps:
+          - "cy.get('[data-testid=\"search-input\"]').type('chemistry')"
+          - "cy.get('[data-testid=\"ed-filters\"]').within(() => { cy.get('select').first().select('CSV') })"
+          - "cy.get('[data-testid=\"filters-apply\"]').click()"
+          - "cy.get('[data-testid=\"ed-grid\"]').should('contain', 'CSV')"
+
+      - name: "can select dataset and view details"
+        steps:
+          - "cy.get('[data-testid=\"grid-row\"]').first().click()"
+          - "cy.get('[data-testid=\"view-detail-button\"]').click()"
+          - "cy.url().should('include','/detail/')"
+          - "cy.get('[data-testid=\"ed-metadata\"]').should('exist')"
+
+      - name: "can navigate to visualization"
+        steps:
+          - "cy.visit('/explore-data')"
+          - "cy.get('[data-testid=\"grid-row\"]').first().click()"
+          - "cy.get('[data-testid=\"visualize-button\"]').click()"
+          - "cy.url().should('include','/visualize/')"
+          - "cy.get('[data-testid=\"ed-chart\"]').should('exist')"
+
+      - name: "can configure chart visualization"
+        steps:
+          - "cy.get('[data-testid=\"chart-type-select\"]').select('line')"
+          - "cy.get('[data-testid=\"x-axis-select\"]').select('timestamp')"
+          - "cy.get('[data-testid=\"y-axis-select\"]').select('temperature')"
+          - "cy.get('[data-testid=\"ed-chart\"]').should('exist')"
