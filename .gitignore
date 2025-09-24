@@ -57,4 +57,4 @@ _*.config.ts
 **/cypress/screenshots/
 
 # Cache
-.eslintcache
+.eslintcache.claude/
