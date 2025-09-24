@@ -1,137 +1,124 @@
 import React from 'react';
 import {
   Box,
-  Button,
-  IconButton,
+  Card,
+  CardContent,
+  Chip,
   Paper,
   Stack,
   Typography,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { LabelValueTable } from '../../../components/LabelValueTable';
-import { DataGrid } from '@mui/x-data-grid';
-import { AppLink } from '../../../components/AppLink';
+import { useExploreDataContext } from '../-context/ContextProvider';
 
-/**
- * Placeholder columns for related data table
- */
-const relatedColumns = [
-  {
-    field: 'id',
-    headerName: 'ID',
-    width: 50,
-  },
-  {
-    field: 'attr1',
-    headerName: 'Attribute 1',
-    width: 100,
-  },
-  {
-    field: 'attr2',
-    headerName: 'Attribute 2',
-    width: 100,
-  },
-  {
-    field: 'attr3',
-    headerName: 'Attribute 3',
-    width: 100,
-  },
-];
+export const PreviewPanel: React.FC = () => {
+  const { state, filteredRows } = useExploreDataContext();
 
-/**
- * Placeholder rows for related data table
- */
-const emptyRows = Array(25).fill(0);
-const relatedRows = emptyRows.map((d, i) => {
-  return { id: i, attr1: 'value', attr2: 'value', attr3: 'value' };
-});
+  const selectedDataset =
+    state.selectedIds.length > 0
+      ? filteredRows.find((ds) => ds.id === state.selectedIds[0])
+      : null;
 
-interface PreviewPanelProps {
-  /**
-   * Data for the selected row from the main table
-   */
-  previewItem: any;
-  /**
-   * Function to handle hiding
-   */
-  onClose: () => void;
-}
+  if (!selectedDataset) {
+    return (
+      <Paper
+        sx={{
+          p: 2,
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography color="textSecondary" align="center">
+          Select a dataset to preview its details
+        </Typography>
+      </Paper>
+    );
+  }
 
-/**
- * Panel to show extra information about a row in a separate panel
- * next to the `<DataTablePanel>`.
- */
-export const PreviewPanel: React.FC<PreviewPanelProps> = ({
-  previewItem,
-  onClose,
-}) => {
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1048576) return `${Math.round(bytes / 1024)} KB`;
+    if (bytes < 1073741824) return `${Math.round(bytes / 1048576)} MB`;
+    return `${Math.round(bytes / 1073741824)} GB`;
+  };
+
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        height: '100%',
-        padding: 2,
-      }}
-    >
-      <Stack spacing={3}>
-        <Stack spacing={1}>
-          <Stack direction="row">
-            <Typography variant="h6" component="h3" flex={1}>
-              <AppLink to="/explore-data/$id" params={{ id: previewItem.Id }}>
-                {previewItem['Planet Name']}
-              </AppLink>
-            </Typography>
-            <IconButton size="small" onClick={onClose}>
-              <CloseIcon />
-            </IconButton>
+    <Paper sx={{ p: 2, height: '100%', overflow: 'auto' }}>
+      <Typography variant="h6" gutterBottom>
+        Preview
+      </Typography>
+
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            {selectedDataset.name}
+          </Typography>
+
+          <Typography variant="body2" color="textSecondary" paragraph>
+            {selectedDataset.description}
+          </Typography>
+
+          <Stack spacing={2}>
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Format & Domain
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Chip label={selectedDataset.format} size="small" />
+                <Chip
+                  label={selectedDataset.domain}
+                  size="small"
+                  variant="outlined"
+                />
+              </Stack>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Dataset Size
+              </Typography>
+              <Stack spacing={1}>
+                <Typography variant="body2">
+                  <strong>Rows:</strong>{' '}
+                  {selectedDataset.rowCount.toLocaleString()}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Columns:</strong> {selectedDataset.columnCount}
+                </Typography>
+                <Typography variant="body2">
+                  <strong>File Size:</strong>{' '}
+                  {formatFileSize(selectedDataset.fileSize)}
+                </Typography>
+              </Stack>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Data Quality
+              </Typography>
+              <Stack spacing={1}>
+                <Typography variant="body2">
+                  <strong>Quality Score:</strong>{' '}
+                  {Math.round(selectedDataset.quality_score * 100)}%
+                </Typography>
+                <Typography variant="body2">
+                  <strong>Completeness:</strong> {selectedDataset.completeness}%
+                </Typography>
+              </Stack>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Last Modified
+              </Typography>
+              <Typography variant="body2">
+                {new Date(selectedDataset.lastModified).toLocaleDateString()}
+              </Typography>
+            </Box>
           </Stack>
-          <Typography variant="body2">
-            Row description, subtitle, or helper text.
-          </Typography>
-        </Stack>
-        <Box>
-          <Typography fontWeight="medium" mb={1}>
-            Property Group 1
-          </Typography>
-          <LabelValueTable
-            rows={[
-              { label: 'Property 1', value: 'value' },
-              { label: 'Property 2', value: 'value' },
-              { label: 'Property 3', value: 'value' },
-            ]}
-          />
-        </Box>
-        <Box>
-          <Typography fontWeight="medium" mb={1}>
-            Property Group 2
-          </Typography>
-          <LabelValueTable
-            rows={[
-              { label: 'Property 4', value: 'value' },
-              { label: 'Property 5', value: 'value' },
-            ]}
-          />
-        </Box>
-        <Box>
-          <Typography fontWeight="medium" mb={1}>
-            Related Data
-          </Typography>
-          <DataGrid
-            rows={relatedRows}
-            columns={relatedColumns}
-            disableRowSelectionOnClick
-            initialState={{
-              pagination: { paginationModel: { pageSize: 5 } },
-            }}
-          />
-        </Box>
-        <Stack direction="row">
-          <AppLink to="/explore-data/$id" params={{ id: previewItem.Id }}>
-            <Button variant="contained">View details</Button>
-          </AppLink>
-          <Button variant="outlined">Export data</Button>
-        </Stack>
-      </Stack>
+        </CardContent>
+      </Card>
     </Paper>
   );
 };

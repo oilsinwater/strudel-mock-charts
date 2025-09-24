@@ -28,6 +28,8 @@ import { Route as CompareDataLayoutImport } from './pages/compare-data/_layout';
 import { Route as RunComputationLayoutIndexImport } from './pages/run-computation/_layout/index';
 import { Route as ContributeDataLayoutIndexImport } from './pages/contribute-data/_layout/index';
 import { Route as CompareDataLayoutIndexImport } from './pages/compare-data/_layout/index';
+import { Route as ExploreDataVisualizeIdImport } from './pages/explore-data/visualize/$id';
+import { Route as ExploreDataDetailIdImport } from './pages/explore-data/detail/$id';
 import { Route as ContributeDataLayoutReviewImport } from './pages/contribute-data/_layout/review';
 import { Route as ContributeDataLayoutPortalImport } from './pages/contribute-data/_layout/portal';
 import { Route as ContributeDataLayoutNewImport } from './pages/contribute-data/_layout/new';
@@ -160,6 +162,18 @@ const CompareDataLayoutIndexRoute = CompareDataLayoutIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CompareDataLayoutRoute,
+} as any);
+
+const ExploreDataVisualizeIdRoute = ExploreDataVisualizeIdImport.update({
+  id: '/explore-data/visualize/$id',
+  path: '/explore-data/visualize/$id',
+  getParentRoute: () => rootRoute,
+} as any);
+
+const ExploreDataDetailIdRoute = ExploreDataDetailIdImport.update({
+  id: '/explore-data/detail/$id',
+  path: '/explore-data/detail/$id',
+  getParentRoute: () => rootRoute,
 } as any);
 
 const ContributeDataLayoutReviewRoute = ContributeDataLayoutReviewImport.update(
@@ -374,6 +388,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContributeDataLayoutReviewImport;
       parentRoute: typeof ContributeDataLayoutImport;
     };
+    '/explore-data/detail/$id': {
+      id: '/explore-data/detail/$id';
+      path: '/explore-data/detail/$id';
+      fullPath: '/explore-data/detail/$id';
+      preLoaderRoute: typeof ExploreDataDetailIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/explore-data/visualize/$id': {
+      id: '/explore-data/visualize/$id';
+      path: '/explore-data/visualize/$id';
+      fullPath: '/explore-data/visualize/$id';
+      preLoaderRoute: typeof ExploreDataVisualizeIdImport;
+      parentRoute: typeof rootRoute;
+    };
     '/compare-data/_layout/': {
       id: '/compare-data/_layout/';
       path: '/';
@@ -580,6 +608,8 @@ export interface FileRoutesByFullPath {
   '/contribute-data/new': typeof ContributeDataLayoutNewRoute;
   '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute;
   '/contribute-data/review': typeof ContributeDataLayoutReviewRoute;
+  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
+  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
   '/compare-data/': typeof CompareDataLayoutIndexRoute;
   '/contribute-data/': typeof ContributeDataLayoutIndexRoute;
   '/run-computation/': typeof RunComputationLayoutIndexRoute;
@@ -608,6 +638,8 @@ export interface FileRoutesByTo {
   '/contribute-data/new': typeof ContributeDataLayoutNewRoute;
   '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute;
   '/contribute-data/review': typeof ContributeDataLayoutReviewRoute;
+  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
+  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
   '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren;
   '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
   '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute;
@@ -637,6 +669,8 @@ export interface FileRoutesById {
   '/contribute-data/_layout/new': typeof ContributeDataLayoutNewRoute;
   '/contribute-data/_layout/portal': typeof ContributeDataLayoutPortalRoute;
   '/contribute-data/_layout/review': typeof ContributeDataLayoutReviewRoute;
+  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
+  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
   '/compare-data/_layout/': typeof CompareDataLayoutIndexRoute;
   '/contribute-data/_layout/': typeof ContributeDataLayoutIndexRoute;
   '/run-computation/_layout/': typeof RunComputationLayoutIndexRoute;
@@ -668,6 +702,8 @@ export interface FileRouteTypes {
     | '/contribute-data/new'
     | '/contribute-data/portal'
     | '/contribute-data/review'
+    | '/explore-data/detail/$id'
+    | '/explore-data/visualize/$id'
     | '/compare-data/'
     | '/contribute-data/'
     | '/run-computation/'
@@ -695,6 +731,8 @@ export interface FileRouteTypes {
     | '/contribute-data/new'
     | '/contribute-data/portal'
     | '/contribute-data/review'
+    | '/explore-data/detail/$id'
+    | '/explore-data/visualize/$id'
     | '/run-computation/$id'
     | '/run-computation/$id/data-inputs'
     | '/run-computation/$id/results'
@@ -722,6 +760,8 @@ export interface FileRouteTypes {
     | '/contribute-data/_layout/new'
     | '/contribute-data/_layout/portal'
     | '/contribute-data/_layout/review'
+    | '/explore-data/detail/$id'
+    | '/explore-data/visualize/$id'
     | '/compare-data/_layout/'
     | '/contribute-data/_layout/'
     | '/run-computation/_layout/'
@@ -747,6 +787,8 @@ export interface RootRouteChildren {
   MonitorActivitiesIndexRoute: typeof MonitorActivitiesIndexRoute;
   PlaygroundIndexRoute: typeof PlaygroundIndexRoute;
   SearchDataRepositoriesIndexRoute: typeof SearchDataRepositoriesIndexRoute;
+  ExploreDataDetailIdRoute: typeof ExploreDataDetailIdRoute;
+  ExploreDataVisualizeIdRoute: typeof ExploreDataVisualizeIdRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -762,6 +804,8 @@ const rootRouteChildren: RootRouteChildren = {
   MonitorActivitiesIndexRoute: MonitorActivitiesIndexRoute,
   PlaygroundIndexRoute: PlaygroundIndexRoute,
   SearchDataRepositoriesIndexRoute: SearchDataRepositoriesIndexRoute,
+  ExploreDataDetailIdRoute: ExploreDataDetailIdRoute,
+  ExploreDataVisualizeIdRoute: ExploreDataVisualizeIdRoute,
 };
 
 export const routeTree = rootRoute
@@ -785,7 +829,9 @@ export const routeTree = rootRoute
         "/explore-data/",
         "/monitor-activities/",
         "/playground/",
-        "/search-data-repositories/"
+        "/search-data-repositories/",
+        "/explore-data/detail/$id",
+        "/explore-data/visualize/$id"
       ]
     },
     "/": {
@@ -879,6 +925,12 @@ export const routeTree = rootRoute
     "/contribute-data/_layout/review": {
       "filePath": "contribute-data/_layout/review.tsx",
       "parent": "/contribute-data/_layout"
+    },
+    "/explore-data/detail/$id": {
+      "filePath": "explore-data/detail/$id.tsx"
+    },
+    "/explore-data/visualize/$id": {
+      "filePath": "explore-data/visualize/$id.tsx"
     },
     "/compare-data/_layout/": {
       "filePath": "compare-data/_layout/index.tsx",

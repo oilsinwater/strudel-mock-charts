@@ -1,153 +1,150 @@
-import { Box, Paper, Stack } from '@mui/material';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import { FilterContext } from '../../components/FilterContext';
+import React from 'react';
+import { Box, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
+import { DataGrid, GridRowParams } from '@mui/x-data-grid';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { PageHeader } from '../../components/PageHeader';
-import { DataView } from './-components/DataView';
-import { DataViewHeader } from './-components/DataViewHeader';
+import {
+  ExploreDataProvider,
+  useExploreDataContext,
+} from './-context/ContextProvider';
+import { exploreDataConfig } from './-config/taskflow.config';
+import { updateSearch, selectDataset } from './-context/actions';
 import { FiltersPanel } from './-components/FiltersPanel';
 import { PreviewPanel } from './-components/PreviewPanel';
-import { FilterConfig } from '../../types/filters.types';
+import { PrimaryActions } from './-components/PrimaryActions';
 
 export const Route = createFileRoute('/explore-data/')({
-  component: DataExplorer,
+  component: ExploreDataPage,
 });
 
-// CUSTOMIZE: the filter definitions
-const filterConfigs: FilterConfig[] = [
-  {
-    field: 'Discovery Method',
-    label: 'Discovery Method',
-    operator: 'contains-one-of',
-    filterComponent: 'CheckboxList',
-    filterProps: {
-      options: [
-        {
-          label: 'Astrometry',
-          value: 'Astrometry',
-        },
-        {
-          label: 'Disk Kinematics',
-          value: 'Disk Kinematics',
-        },
-        {
-          label: 'Eclipse Timing Variations',
-          value: 'Eclipse Timing Variations',
-        },
-        {
-          label: 'Imaging',
-          value: 'Imaging',
-        },
-        {
-          label: 'Microlensing',
-          value: 'Microlensing',
-        },
-        {
-          label: 'Radial Velocity',
-          value: 'Radial Velocity',
-        },
-        {
-          label: 'Transit',
-          value: 'Transit',
-        },
-      ],
-    },
-  },
-  {
-    field: 'Mass',
-    label: 'Mass',
-    operator: 'between-inclusive',
-    filterComponent: 'RangeSlider',
-    filterProps: {
-      min: 0,
-      max: 10000,
-    },
-  },
-];
+const ExploreDataContent: React.FC = () => {
+  const { state, dispatch, filteredRows } = useExploreDataContext();
+  const navigate = useNavigate();
 
-/**
- * Main explorer page in the explore-data Task Flow.
- * This page includes the page header, filters panel,
- * main table, and the table row preview panel.
- */
-function DataExplorer() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [previewItem, setPreviewItem] = useState<any>();
-  const [showFiltersPanel, setShowFiltersPanel] = useState(true);
-
-  const handleCloseFilters = () => {
-    setShowFiltersPanel(false);
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSearch(event.target.value));
   };
 
-  const handleToggleFilters = () => {
-    setShowFiltersPanel(!showFiltersPanel);
+  const handleRowClick = (params: GridRowParams) => {
+    dispatch(selectDataset(params.id as string));
   };
 
-  const handleClosePreview = () => {
-    setPreviewItem(null);
+  const handleViewDetail = () => {
+    if (state.selectedIds.length > 0) {
+      navigate({ to: `/explore-data/detail/${state.selectedIds[0]}` });
+    }
+  };
+
+  const handleVisualize = () => {
+    if (state.selectedIds.length > 0) {
+      navigate({ to: `/explore-data/visualize/${state.selectedIds[0]}` });
+    }
   };
 
   return (
-    <FilterContext>
-      <Box>
+    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Box data-testid="ed-header" sx={{ p: 3 }}>
         <PageHeader
-          // CUSTOMIZE: the page title
-          pageTitle="Explore Data App"
-          // CUSTOMIZE: the page description
-          description="Description of this app"
-          sx={{
-            marginBottom: 1,
-            padding: 2,
-          }}
+          pageTitle={exploreDataConfig.title}
+          description={exploreDataConfig.description}
         />
-        <Box>
-          <Stack direction="row">
-            {showFiltersPanel && (
-              <Box
-                sx={{
-                  width: '350px',
-                }}
-              >
-                <FiltersPanel
-                  filterConfigs={filterConfigs}
-                  onClose={handleCloseFilters}
-                />
-              </Box>
-            )}
-            <Paper
-              elevation={0}
-              sx={{
-                flex: 1,
-                minHeight: '600px',
-                minWidth: 0,
-              }}
-            >
-              <DataViewHeader
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                onToggleFiltersPanel={handleToggleFilters}
-              />
-              <DataView
-                filterConfigs={filterConfigs}
-                searchTerm={searchTerm}
-                setPreviewItem={setPreviewItem}
-              />
-            </Paper>
-            {previewItem && (
-              <Box
-                sx={{
-                  minWidth: '400px',
-                }}
-              >
-                <PreviewPanel
-                  previewItem={previewItem}
-                  onClose={handleClosePreview}
-                />
-              </Box>
-            )}
-          </Stack>
+        <Box sx={{ mt: 2 }}>
+          <TextField
+            data-testid="search-input"
+            fullWidth
+            label="Search datasets..."
+            variant="outlined"
+            value={state.searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search by name, description, or domain"
+          />
         </Box>
       </Box>
-    </FilterContext>
+
+      <Box sx={{ flex: 1, p: 3, pt: 0 }}>
+        <Grid container spacing={3} sx={{ height: '100%' }}>
+          <Grid item xs={12} md={3}>
+            <Box data-testid="ed-filters" sx={{ height: '100%' }}>
+              <FiltersPanel />
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Paper
+              sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
+                <Typography variant="h6">
+                  Datasets ({filteredRows.length})
+                </Typography>
+              </Box>
+              <Box data-testid="ed-grid" sx={{ flex: 1 }}>
+                {state.loading ? (
+                  <Box sx={{ p: 3, textAlign: 'center' }}>
+                    <Typography>Loading datasets...</Typography>
+                  </Box>
+                ) : state.error ? (
+                  <Box sx={{ p: 3, textAlign: 'center' }}>
+                    <Typography color="error">{state.error}</Typography>
+                  </Box>
+                ) : (
+                  <DataGrid
+                    rows={filteredRows}
+                    columns={exploreDataConfig.columns}
+                    pageSizeOptions={[25, 50, 100]}
+                    initialState={{
+                      pagination: { paginationModel: { pageSize: 25 } },
+                    }}
+                    onRowClick={handleRowClick}
+                    rowSelectionModel={state.selectedIds}
+                    onRowSelectionModelChange={(newSelection) => {
+                      if (newSelection.length > 0) {
+                        dispatch(selectDataset(newSelection[0] as string));
+                      }
+                    }}
+                    sx={{
+                      '& .MuiDataGrid-row': {
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: 'action.hover',
+                        },
+                      },
+                    }}
+                    slotProps={{
+                      row: {
+                        'data-testid': 'grid-row',
+                      },
+                    }}
+                  />
+                )}
+              </Box>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} md={3}>
+            <Stack spacing={2} sx={{ height: '100%' }}>
+              <Box data-testid="ed-preview" sx={{ flex: 1 }}>
+                <PreviewPanel />
+              </Box>
+              <Box data-testid="ed-actions">
+                <PrimaryActions
+                  onViewDetail={handleViewDetail}
+                  onVisualize={handleVisualize}
+                  disabled={state.selectedIds.length === 0}
+                />
+              </Box>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
+  );
+};
+
+function ExploreDataPage() {
+  return (
+    <ExploreDataProvider>
+      <ExploreDataContent />
+    </ExploreDataProvider>
   );
 }
