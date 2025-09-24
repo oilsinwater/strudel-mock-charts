@@ -58,3 +58,4 @@ _*.config.ts
 
 # Cache
 .eslintcache.claude/
+.eslintcache
