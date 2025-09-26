@@ -48,6 +48,7 @@ const ExploreDataContent: React.FC = () => {
         search: {
           ids: state.selectedIds.join(','),
           origin: 'explore-data',
+          baseline: undefined,
         },
       });
     }
