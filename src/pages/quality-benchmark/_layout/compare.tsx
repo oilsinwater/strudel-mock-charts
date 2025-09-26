@@ -15,17 +15,17 @@ import {
   Link as RouterLink,
   useNavigate,
 } from '@tanstack/react-router';
-import { PageHeader } from '../../components/PageHeader';
-import { useQualityBenchmarkContext } from './-context/ContextProvider';
+import { PageHeader } from '../../../components/PageHeader';
+import { useQualityBenchmarkContext } from '../-context/ContextProvider';
 import {
   setHighlightedMetric,
   setSelectedIds,
   toggleBaseline,
-} from './-context/actions';
-import { MetricsMatrix } from './-components/MetricsMatrix';
-import { InsightsPanel } from './-components/InsightsPanel';
-import { TrendMiniCharts } from './-components/TrendMiniCharts';
-import { qualityBenchmarkConfig } from './-config/taskflow.config';
+} from '../-context/actions';
+import { MetricsMatrix } from '../-components/MetricsMatrix';
+import { InsightsPanel } from '../-components/InsightsPanel';
+import { TrendMiniCharts } from '../-components/TrendMiniCharts';
+import { qualityBenchmarkConfig } from '../-config/taskflow.config';
 
 function QualityBenchmarkCompare() {
   const { state, dispatch, comparisonRows, baselineRow } =
@@ -184,7 +184,7 @@ function QualityBenchmarkCompare() {
   );
 }
 
-export const Route = createFileRoute('/quality-benchmark/compare')({
+export const Route = createFileRoute('/quality-benchmark/_layout/compare')({
   component: QualityBenchmarkCompare,
   validateSearch: (search: Record<string, unknown>) => ({
     ids: typeof search.ids === 'string' ? search.ids : undefined,

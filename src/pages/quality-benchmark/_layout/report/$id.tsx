@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Box, Button, Grid, Paper, Stack, Typography } from '@mui/material';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { PageHeader } from '../../../components/PageHeader';
-import { useQualityBenchmarkContext } from '../-context/ContextProvider';
-import { HistoryTimeline } from '../-components/HistoryTimeline';
-import { qualityBenchmarkConfig } from '../-config/taskflow.config';
+import { PageHeader } from '../../../../components/PageHeader';
+import { useQualityBenchmarkContext } from '../../-context/ContextProvider';
+import { HistoryTimeline } from '../../-components/HistoryTimeline';
+import { qualityBenchmarkConfig } from '../../-config/taskflow.config';
 
 const formatPercent = (value: number) => `${Math.round(value * 100)}%`;
 
@@ -137,7 +137,7 @@ function QualityBenchmarkReport() {
   );
 }
 
-export const Route = createFileRoute('/quality-benchmark/report/$id')({
+export const Route = createFileRoute('/quality-benchmark/_layout/report/$id')({
   component: QualityBenchmarkReport,
   validateSearch: (search: Record<string, unknown>) => ({
     ids: typeof search.ids === 'string' ? search.ids : undefined,

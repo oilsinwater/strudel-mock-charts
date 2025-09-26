@@ -1,19 +1,19 @@
 import React, { useMemo, useRef } from 'react';
 import { Box, Grid, Stack, Button } from '@mui/material';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { PageHeader } from '../../components/PageHeader';
-import { useQualityBenchmarkContext } from './-context/ContextProvider';
+import { PageHeader } from '../../../components/PageHeader';
+import { useQualityBenchmarkContext } from '../-context/ContextProvider';
 import {
   clearMetricFilters,
   hydrateFromExplore,
   removeMetricFilter,
   setSelectedIds,
   updateMetricFilter,
-} from './-context/actions';
-import { SelectionSummary } from './-components/SelectionSummary';
-import { DatasetPicker } from './-components/DatasetPicker';
-import { MetricFilters } from './-components/MetricFilters';
-import { qualityBenchmarkConfig } from './-config/taskflow.config';
+} from '../-context/actions';
+import { SelectionSummary } from '../-components/SelectionSummary';
+import { DatasetPicker } from '../-components/DatasetPicker';
+import { MetricFilters } from '../-components/MetricFilters';
+import { qualityBenchmarkConfig } from '../-config/taskflow.config';
 
 const metricDefaultThreshold: Record<
   'qualityScore' | 'completeness' | 'anomalyRate' | 'drift',
@@ -165,7 +165,7 @@ export function QualityBenchmarkIndexPage() {
   );
 }
 
-export const Route = createFileRoute('/quality-benchmark/')({
+export const Route = createFileRoute('/quality-benchmark/_layout/')({
   component: QualityBenchmarkIndexPage,
   validateSearch: (search: Record<string, unknown>) => ({
     ids: typeof search.ids === 'string' ? search.ids : undefined,
