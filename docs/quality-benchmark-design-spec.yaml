@@ -1,0 +1,355 @@
+design_spec:
+  metadata:
+    title: "Quality Benchmark"
+    task_flow_type: "monitor-activities"
+    domain: "Data Science and Visualization"
+    description: "Assess, benchmark, and monitor data quality for scientific datasets with validation workflows and quality trend analysis"
+    schema_version: "1.0.0"
+
+  routes:
+    - name: "index"
+      path: "/quality-benchmark"
+      layout: "root"
+      children:
+        - name: "assess"
+          path: "assess/:id"
+        - name: "results"
+          path: "results/:id"
+        - name: "trends"
+          path: "trends"
+
+  screens:
+    - id: "index"
+      purpose: "Browse quality assessment history and initiate new benchmarks"
+      primary_components: ["PageHeader", "Filters", "AssessmentGrid", "QualityPreview", "PrimaryActions"]
+      data_bindings:
+        source: "assessments.main"
+        id_field: "assessmentId"
+      inputs: ["filters", "selection", "searchTerm"]
+      outputs: ["selectedIds"]
+      regions:
+        header: ["title", "description"]
+        left: ["Filters"]
+        main: ["AssessmentGrid", "QualityPreview"]
+        footer: ["PrimaryActions"]
+
+    - id: "assess"
+      purpose: "Run quality assessment checks on selected dataset"
+      primary_components: ["PageHeader", "DatasetInfo", "QualityChecks", "ValidationResults", "AssessmentActions"]
+      data_bindings:
+        source: "assessments.current"
+        id_field: "datasetId"
+      inputs: ["checkConfig", "validationRules"]
+      outputs: ["assessmentResults"]
+      regions:
+        header: ["datasetName", "backButton"]
+        left: ["DatasetInfo", "QualityChecks"]
+        main: ["ValidationResults"]
+        footer: ["AssessmentActions"]
+
+    - id: "results"
+      purpose: "View detailed assessment results and quality metrics"
+      primary_components: ["PageHeader", "QualityMetrics", "ValidationDetails", "TrendCharts", "ResultActions"]
+      data_bindings:
+        source: "assessments.results"
+        id_field: "assessmentId"
+      inputs: ["timeRange", "metricFilters"]
+      outputs: ["exportData"]
+      regions:
+        header: ["assessmentTitle", "timestamp"]
+        left: ["QualityMetrics"]
+        main: ["ValidationDetails", "TrendCharts"]
+        footer: ["ResultActions"]
+
+    - id: "trends"
+      purpose: "Monitor quality trends across datasets and time"
+      primary_components: ["PageHeader", "TrendFilters", "QualityTrendCharts", "DatasetComparison", "TrendActions"]
+      data_bindings:
+        source: "assessments.trends"
+        id_field: "trendId"
+      inputs: ["dateRange", "datasetFilters", "qualityMetrics"]
+      outputs: ["trendAnalysis"]
+      regions:
+        header: ["trendsTitle"]
+        left: ["TrendFilters"]
+        main: ["QualityTrendCharts", "DatasetComparison"]
+        footer: ["TrendActions"]
+
+  state:
+    types:
+      SelectedId: "string"
+      Filter: "{ field: string; op: string; value: any }"
+      QualityCheck: "{ checkId: string; name: string; enabled: boolean; threshold: number }"
+      AssessmentResult: "{ checkId: string; status: 'pass' | 'fail' | 'warning'; score: number; details: string }"
+    initial:
+      selectedIds: []
+      filters: []
+      assessments: []
+      currentAssessment: null
+      qualityChecks: []
+      assessmentResults: []
+      loading: false
+      error: null
+      trends: []
+    derived:
+      filteredAssessments: "assessments filtered by filters"
+      qualityScore: "average score from assessmentResults"
+      passRate: "percentage of passed checks"
+
+  actions:
+    - name: "applyFilter"
+      kind: "filter"
+      payload: "{ field: string; op: string; value: any }"
+      preconditions: []
+      state_mutations:
+        - "filters = update(filters, payload)"
+      side_effects: []
+      triggers:
+        component: "Filters"
+        on: "change"
+        testid: "filters-apply"
+
+    - name: "navigateToAssess"
+      kind: "navigate"
+      payload: "{ datasetId: string }"
+      preconditions: ["datasetId != null"]
+      state_mutations: []
+      side_effects:
+        - "route.push('/quality-benchmark/assess/' + datasetId)"
+      triggers:
+        component: "AssessmentGrid"
+        on: "rowClick"
+        testid: "assessment-row"
+
+    - name: "runQualityChecks"
+      kind: "compute"
+      payload: "{ datasetId: string; checks: QualityCheck[] }"
+      preconditions: ["checks.length > 0"]
+      state_mutations:
+        - "loading = true"
+        - "error = null"
+      side_effects:
+        - "async/qualityService(payload) -> dispatch('finishQualityChecks')"
+      triggers:
+        component: "AssessmentActions"
+        on: "click"
+        testid: "run-checks-button"
+
+    - name: "finishQualityChecks"
+      kind: "compute"
+      payload: "{ assessmentId: string; results: AssessmentResult[] }"
+      preconditions: ["loading === true"]
+      state_mutations:
+        - "loading = false"
+        - "assessmentResults = payload.results"
+        - "assessments = append(assessments, payload)"
+      side_effects:
+        - "route.push('/quality-benchmark/results/' + payload.assessmentId)"
+      triggers:
+        component: "system"
+        on: "asyncComplete"
+        testid: null
+
+    - name: "updateChecks"
+      kind: "update"
+      payload: "{ checks: QualityCheck[] }"
+      preconditions: []
+      state_mutations:
+        - "qualityChecks = payload.checks"
+      side_effects: []
+      triggers:
+        component: "QualityChecks"
+        on: "change"
+        testid: "quality-checks"
+
+    - name: "navigateToTrends"
+      kind: "navigate"
+      payload: "{}"
+      preconditions: []
+      state_mutations: []
+      side_effects:
+        - "route.push('/quality-benchmark/trends')"
+      triggers:
+        component: "PrimaryActions"
+        on: "click"
+        testid: "trends-button"
+
+  userflow:
+    nodes: ["index", "assess", "results", "trends"]
+    edges:
+      - from: "index"
+        action: "applyFilter"
+        to: "index"
+        guard: "state.filters change"
+      - from: "index"
+        action: "navigateToAssess"
+        to: "assess"
+        guard: "datasetId != null"
+      - from: "assess"
+        action: "runQualityChecks"
+        to: "results"
+        guard: "checks configured"
+      - from: "index"
+        action: "navigateToTrends"
+        to: "trends"
+        guard: "none"
+      - from: "results"
+        action: "navigateToAssess"
+        to: "assess"
+        guard: "re-assess dataset"
+
+  data_models:
+    - name: "QualityAssessmentRow"
+      id: "assessmentId"
+      fields:
+        - { name: "assessmentId", type: "string" }
+        - { name: "datasetId", type: "string" }
+        - { name: "datasetName", type: "string" }
+        - { name: "timestamp", type: "string" }
+        - { name: "overallScore", type: "number", unit: "percentage" }
+        - { name: "completeness", type: "number", unit: "percentage" }
+        - { name: "consistency", type: "number", unit: "percentage" }
+        - { name: "accuracy", type: "number", unit: "percentage" }
+        - { name: "validity", type: "number", unit: "percentage" }
+        - { name: "status", type: "string" }
+        - { name: "checksRun", type: "number" }
+        - { name: "checksPassed", type: "number" }
+
+    - name: "QualityMetricRow"
+      id: "metricId"
+      fields:
+        - { name: "metricId", type: "string" }
+        - { name: "assessmentId", type: "string" }
+        - { name: "checkName", type: "string" }
+        - { name: "category", type: "string" }
+        - { name: "score", type: "number", unit: "percentage" }
+        - { name: "threshold", type: "number", unit: "percentage" }
+        - { name: "status", type: "string" }
+        - { name: "details", type: "string" }
+        - { name: "recommendations", type: "string" }
+
+  mock_data:
+    seed: 2024
+    datasets:
+      - name: "main"
+        file: "public/data/quality-benchmark-main.csv"
+        rows: 45
+        schema:
+          - { name: "assessmentId", type: "string" }
+          - { name: "datasetId", type: "string" }
+          - { name: "datasetName", type: "string" }
+          - { name: "timestamp", type: "string" }
+          - { name: "overallScore", type: "number", range: [65, 98] }
+          - { name: "completeness", type: "number", range: [70, 100] }
+          - { name: "consistency", type: "number", range: [60, 95] }
+          - { name: "accuracy", type: "number", range: [75, 99] }
+          - { name: "validity", type: "number", range: [80, 100] }
+          - { name: "status", type: "string", values: ["Excellent", "Good", "Fair", "Poor"] }
+          - { name: "checksRun", type: "number", range: [8, 15] }
+          - { name: "checksPassed", type: "number", range: [5, 15] }
+
+      - name: "metrics"
+        file: "public/data/quality-benchmark-metrics.csv"
+        rows: 180
+        schema:
+          - { name: "metricId", type: "string" }
+          - { name: "assessmentId", type: "string" }
+          - { name: "checkName", type: "string", values: ["Null Check", "Range Validation", "Format Consistency", "Duplicate Detection", "Schema Validation", "Statistical Outliers"] }
+          - { name: "category", type: "string", values: ["Completeness", "Consistency", "Accuracy", "Validity"] }
+          - { name: "score", type: "number", range: [50, 100] }
+          - { name: "threshold", type: "number", range: [70, 95] }
+          - { name: "status", type: "string", values: ["Pass", "Fail", "Warning"] }
+          - { name: "details", type: "string" }
+          - { name: "recommendations", type: "string" }
+
+    invariants:
+      - "assessmentId unique in main"
+      - "overallScore = avg(completeness, consistency, accuracy, validity)"
+      - "checksPassed <= checksRun"
+
+  config_hints:
+    columns:
+      - { field: "datasetName", headerName: "Dataset", width: 200, flex: 1 }
+      - { field: "timestamp", headerName: "Assessed", width: 150, type: "date" }
+      - { field: "overallScore", headerName: "Overall Score", width: 120, isComparisonMetric: true, valueFormatter: "value + '%'" }
+      - { field: "completeness", headerName: "Complete", width: 100, valueFormatter: "value + '%'" }
+      - { field: "consistency", headerName: "Consistent", width: 100, valueFormatter: "value + '%'" }
+      - { field: "accuracy", headerName: "Accurate", width: 100, valueFormatter: "value + '%'" }
+      - { field: "validity", headerName: "Valid", width: 100, valueFormatter: "value + '%'" }
+      - { field: "status", headerName: "Status", width: 100 }
+      - { field: "checksPassed", headerName: "Checks", width: 80, valueFormatter: "value + '/' + row.checksRun" }
+
+    filters:
+      - { field: "status", type: "select", optionsFrom: "main.status" }
+      - { field: "overallScore", type: "range", min: 0, max: 100, step: 5 }
+      - { field: "timestamp", type: "date" }
+
+    routes_title:
+      index: "Quality Assessments"
+      assess: "Assess Data Quality"
+      results: "Quality Results"
+      trends: "Quality Trends"
+
+  test_ids:
+    regions:
+      header: "qb-header"
+      filters: "qb-filters"
+      grid: "qb-grid"
+      preview: "qb-preview"
+      actions: "qb-actions"
+      checks: "qb-checks"
+      results: "qb-results"
+      trends: "qb-trends"
+    controls:
+      runChecksButton: "run-checks-button"
+      assessButton: "assess-button"
+      trendsButton: "trends-button"
+      exportButton: "export-button"
+      filtersApply: "filters-apply"
+      assessmentRow: "assessment-row"
+      qualityChecks: "quality-checks"
+
+  test_plan:
+    unit_vitest:
+      - name: "reducers mutate state predictably"
+        targets: ["actions.applyFilter", "actions.finishQualityChecks", "actions.updateChecks"]
+        asserts:
+          - "adding filter increases filters.length"
+          - "finishQualityChecks sets loading=false and updates assessmentResults"
+          - "updateChecks modifies qualityChecks array"
+      - name: "selectors derive quality metrics"
+        targets: ["state.derived.qualityScore", "state.derived.passRate"]
+        asserts:
+          - "qualityScore calculates average from assessmentResults"
+          - "passRate calculates percentage of passed checks"
+
+    e2e_cypress:
+      - name: "loads index and shows header"
+        path: "/quality-benchmark"
+        steps:
+          - "cy.visit()"
+          - "cy.get('[data-testid=\"qb-header\"]').should('exist')"
+          - "cy.contains('Quality Assessments').should('exist')"
+
+      - name: "can filter assessments and navigate to assess"
+        steps:
+          - "cy.get('[data-testid=\"filters-apply\"]').click()"
+          - "cy.get('[data-testid=\"qb-grid\"]').should('exist')"
+          - "cy.get('[data-testid=\"assessment-row\"]').first().click()"
+          - "cy.url().should('include', '/assess/')"
+
+      - name: "runs quality checks workflow"
+        steps:
+          - "cy.visit('/quality-benchmark/assess/ds-001')"
+          - "cy.get('[data-testid=\"quality-checks\"]').should('exist')"
+          - "cy.get('[data-testid=\"run-checks-button\"]').click()"
+          - "cy.contains('Running').should('exist')"
+          - "cy.url().should('include', '/results/')"
+          - "cy.get('[data-testid=\"qb-results\"]').should('exist')"
+
+      - name: "navigates to trends and displays charts"
+        steps:
+          - "cy.visit('/quality-benchmark')"
+          - "cy.get('[data-testid=\"trends-button\"]').click()"
+          - "cy.url().should('include', '/trends')"
+          - "cy.get('[data-testid=\"qb-trends\"]').should('exist')"

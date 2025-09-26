@@ -1,0 +1,16 @@
+id,baseline,qualityScore,completeness,anomalyRate,drift,lastUpdated
+ds-001,Chemical Reaction Dataset,0.89,94,3.2,0.15,2024-03-15
+ds-002,Materials Properties Database,0.95,98,1.8,0.08,2024-03-10
+ds-003,Environmental Sensor Network,0.87,91,4.5,0.32,2024-03-18
+ds-004,Protein Structure Analysis,0.92,96,2.1,0.12,2024-03-12
+ds-005,Solar Panel Efficiency,0.88,93,3.8,0.28,2024-03-20
+ds-006,Quantum Dot Synthesis,0.91,97,2.7,0.19,2024-03-08
+ds-007,Water Treatment Plant,0.86,89,5.2,0.41,2024-03-22
+ds-008,Polymer Characterization,0.94,99,1.3,0.06,2024-03-14
+ds-009,Atmospheric Chemistry Model,0.90,95,2.9,0.22,2024-03-16
+ds-010,Catalyst Performance Study,0.85,88,4.1,0.35,2024-03-11
+ds-011,Semiconductor Manufacturing,0.93,96,2.3,0.14,2024-03-19
+ds-012,Bioprocess Monitoring,0.89,92,3.6,0.27,2024-03-13
+ds-013,Fuel Cell Testing,0.87,90,4.3,0.31,2024-03-17
+ds-014,Nanomaterial Synthesis,0.92,97,2.5,0.18,2024-03-09
+ds-015,Chemical Process Optimization,0.88,94,3.4,0.24,2024-03-21

@@ -1,0 +1,137 @@
+QUALITY BENCHMARK TASKFLOW - ASCII WIREFRAMES
+==============================================
+
+WIREFLOW DIAGRAM:
+-----------------
+
+[INDEX] --applyFilter--> [INDEX]                    // filter assessments
+[INDEX] --navigateToAssess(id)--> [ASSESS]          // select dataset to assess
+[ASSESS] --runQualityChecks--> [RESULTS]            // run checks and show results
+[INDEX] --navigateToTrends--> [TRENDS]              // view quality trends
+[RESULTS] --navigateToAssess--> [ASSESS]            // re-assess dataset
+
+
+SCREEN LAYOUTS:
+---------------
+
+INDEX SCREEN
++--------------------------------------------------+
+| Header: Quality Assessments (qb-header)         |
++---------------------+----------------------------+
+| Filters (qb-filters)| AssessmentGrid (qb-grid)  |
+| - Status            | - Dataset Name             |
+| - Overall Score     | - Assessment Date          |
+| - Date Range        | - Overall Score            |
+|                     | - Quality Metrics          |
+| QualityPreview      | - Status                   |
+| (qb-preview)        | - Actions                  |
++---------------------+----------------------------+
+| PrimaryActions: [Assess New] [Trends] (qb-actions)|
++--------------------------------------------------+
+
+ASSESS SCREEN
++--------------------------------------------------+
+| Header: {Back, Dataset Name} (qb-header)         |
++---------------------+----------------------------+
+| DatasetInfo         | ValidationResults          |
+| - Metadata          | (qb-results)               |
+| - Connection to     | - Check Status             |
+|   explore-data      | - Progress Indicators      |
+|                     | - Real-time Results        |
+| QualityChecks       |                            |
+| (qb-checks)         |                            |
+| - Completeness      |                            |
+| - Consistency       |                            |
+| - Accuracy          |                            |
+| - Validity          |                            |
++---------------------+----------------------------+
+| AssessmentActions: [Run Checks] [Cancel]         |
++--------------------------------------------------+
+
+RESULTS SCREEN
++--------------------------------------------------+
+| Header: {Assessment Title, Timestamp}            |
++---------------------+----------------------------+
+| QualityMetrics      | ValidationDetails +        |
+| - Overall Score     | TrendCharts               |
+| - Score Breakdown   | (qb-results)              |
+| - Pass/Fail Stats   | - Detailed Check Results   |
+|                     | - Recommendations         |
+|                     | - Quality Trend Over Time |
++---------------------+----------------------------+
+| ResultActions: [Export] [Re-assess] [Back]       |
++--------------------------------------------------+
+
+TRENDS SCREEN
++--------------------------------------------------+
+| Header: Quality Trends (qb-header)               |
++---------------------+----------------------------+
+| TrendFilters        | QualityTrendCharts +       |
+| (qb-filters)        | DatasetComparison          |
+| - Date Range        | (qb-trends)                |
+| - Dataset Filter    | - Quality Score Trends     |
+| - Quality Metrics   | - Dataset Comparison       |
+|                     | - Trend Analysis           |
++---------------------+----------------------------+
+| TrendActions: [Export Analysis] [Back]           |
++--------------------------------------------------+
+
+
+COMPONENT MAPPING:
+------------------
+
+- PageHeader: Standard STRUDEL page header component
+- Filters: FilterPanel with quality metric filters
+- AssessmentGrid: DataGrid showing assessment history
+- QualityPreview: Preview panel for selected assessment
+- PrimaryActions: Action buttons (Assess New, Trends)
+- DatasetInfo: Dataset metadata and connection info
+- QualityChecks: Configurable quality check options
+- ValidationResults: Real-time validation results display
+- AssessmentActions: Assessment workflow controls
+- QualityMetrics: Quality score breakdown display
+- ValidationDetails: Detailed validation results
+- TrendCharts: Quality trend visualization
+- ResultActions: Export, re-assess, navigation actions
+- TrendFilters: Date range and dataset filters
+- QualityTrendCharts: Multi-dataset trend comparison
+- DatasetComparison: Side-by-side dataset quality comparison
+- TrendActions: Trend analysis export and navigation
+
+
+TEST IDS REFERENCE:
+-------------------
+
+Regions:
+- qb-header: Main page header region
+- qb-filters: Filter controls region
+- qb-grid: Assessment data grid region
+- qb-preview: Assessment preview panel
+- qb-actions: Primary action buttons
+- qb-checks: Quality checks configuration
+- qb-results: Validation results display
+- qb-trends: Trend visualization region
+
+Controls:
+- run-checks-button: Initiate quality assessment
+- assess-button: Navigate to assessment page
+- trends-button: Navigate to trends page
+- export-button: Export assessment results
+- filters-apply: Apply filter changes
+- assessment-row: Clickable assessment grid row
+- quality-checks: Quality check configuration controls
+
+
+CONNECTION TO EXPLORE-DATA:
+---------------------------
+
+The quality-benchmark taskflow connects to explore-data through:
+
+1. URL Parameters: ?ids=ds-001,ds-002&origin=explore-data
+2. Shared Dataset IDs: Both taskflows reference same dataset identifiers
+3. Cross-navigation: "Benchmark Quality" button in explore-data
+4. State Hydration: Pre-select datasets from explore-data context
+5. Filter Mapping: Convert explore-data filters to quality metrics
+
+User Journey:
+explore-data (browse datasets) → quality-benchmark (assess quality) → detailed reports
