@@ -8,47 +8,52 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
 // Import Routes
 
-import { Route as rootRoute } from './pages/__root'
-import { Route as IndexImport } from './pages/index'
-import { Route as SearchDataRepositoriesIndexImport } from './pages/search-data-repositories/index'
-import { Route as PlaygroundIndexImport } from './pages/playground/index'
-import { Route as MonitorActivitiesIndexImport } from './pages/monitor-activities/index'
-import { Route as ExploreDataIndexImport } from './pages/explore-data/index'
-import { Route as SearchDataRepositoriesIdImport } from './pages/search-data-repositories/$id'
-import { Route as RunComputationLayoutImport } from './pages/run-computation/_layout'
-import { Route as MonitorActivitiesDetailImport } from './pages/monitor-activities/detail'
-import { Route as MonitorActivitiesCalendarImport } from './pages/monitor-activities/calendar'
-import { Route as ExploreDataIdImport } from './pages/explore-data/$id'
-import { Route as ContributeDataLayoutImport } from './pages/contribute-data/_layout'
-import { Route as CompareDataLayoutImport } from './pages/compare-data/_layout'
-import { Route as RunComputationLayoutIndexImport } from './pages/run-computation/_layout/index'
-import { Route as ContributeDataLayoutIndexImport } from './pages/contribute-data/_layout/index'
-import { Route as CompareDataLayoutIndexImport } from './pages/compare-data/_layout/index'
-import { Route as ExploreDataVisualizeIdImport } from './pages/explore-data/visualize/$id'
-import { Route as ExploreDataDetailIdImport } from './pages/explore-data/detail/$id'
-import { Route as ContributeDataLayoutReviewImport } from './pages/contribute-data/_layout/review'
-import { Route as ContributeDataLayoutPortalImport } from './pages/contribute-data/_layout/portal'
-import { Route as ContributeDataLayoutNewImport } from './pages/contribute-data/_layout/new'
-import { Route as CompareDataLayoutNewImport } from './pages/compare-data/_layout/new'
-import { Route as CompareDataLayoutCompareImport } from './pages/compare-data/_layout/compare'
-import { Route as RunComputationLayoutIdLayoutImport } from './pages/run-computation/_layout/$id/_layout'
-import { Route as RunComputationLayoutIdLayoutSettingsImport } from './pages/run-computation/_layout/$id/_layout/settings'
-import { Route as RunComputationLayoutIdLayoutRunningImport } from './pages/run-computation/_layout/$id/_layout/running'
-import { Route as RunComputationLayoutIdLayoutResultsImport } from './pages/run-computation/_layout/$id/_layout/results'
-import { Route as RunComputationLayoutIdLayoutDataInputsImport } from './pages/run-computation/_layout/$id/_layout/data-inputs'
+import { Route as rootRoute } from './pages/__root';
+import { Route as IndexImport } from './pages/index';
+import { Route as SearchDataRepositoriesIndexImport } from './pages/search-data-repositories/index';
+import { Route as QualityBenchmarkIndexImport } from './pages/quality-benchmark/index';
+import { Route as PlaygroundIndexImport } from './pages/playground/index';
+import { Route as MonitorActivitiesIndexImport } from './pages/monitor-activities/index';
+import { Route as ExploreDataIndexImport } from './pages/explore-data/index';
+import { Route as SearchDataRepositoriesIdImport } from './pages/search-data-repositories/$id';
+import { Route as RunComputationLayoutImport } from './pages/run-computation/_layout';
+import { Route as QualityBenchmarkCompareImport } from './pages/quality-benchmark/compare';
+import { Route as QualityBenchmarkLayoutImport } from './pages/quality-benchmark/_layout';
+import { Route as MonitorActivitiesDetailImport } from './pages/monitor-activities/detail';
+import { Route as MonitorActivitiesCalendarImport } from './pages/monitor-activities/calendar';
+import { Route as ExploreDataIdImport } from './pages/explore-data/$id';
+import { Route as ContributeDataLayoutImport } from './pages/contribute-data/_layout';
+import { Route as CompareDataLayoutImport } from './pages/compare-data/_layout';
+import { Route as RunComputationLayoutIndexImport } from './pages/run-computation/_layout/index';
+import { Route as ContributeDataLayoutIndexImport } from './pages/contribute-data/_layout/index';
+import { Route as CompareDataLayoutIndexImport } from './pages/compare-data/_layout/index';
+import { Route as QualityBenchmarkReportIdImport } from './pages/quality-benchmark/report/$id';
+import { Route as ExploreDataVisualizeIdImport } from './pages/explore-data/visualize/$id';
+import { Route as ExploreDataDetailIdImport } from './pages/explore-data/detail/$id';
+import { Route as ContributeDataLayoutReviewImport } from './pages/contribute-data/_layout/review';
+import { Route as ContributeDataLayoutPortalImport } from './pages/contribute-data/_layout/portal';
+import { Route as ContributeDataLayoutNewImport } from './pages/contribute-data/_layout/new';
+import { Route as CompareDataLayoutNewImport } from './pages/compare-data/_layout/new';
+import { Route as CompareDataLayoutCompareImport } from './pages/compare-data/_layout/compare';
+import { Route as RunComputationLayoutIdLayoutImport } from './pages/run-computation/_layout/$id/_layout';
+import { Route as RunComputationLayoutIdLayoutSettingsImport } from './pages/run-computation/_layout/$id/_layout/settings';
+import { Route as RunComputationLayoutIdLayoutRunningImport } from './pages/run-computation/_layout/$id/_layout/running';
+import { Route as RunComputationLayoutIdLayoutResultsImport } from './pages/run-computation/_layout/$id/_layout/results';
+import { Route as RunComputationLayoutIdLayoutDataInputsImport } from './pages/run-computation/_layout/$id/_layout/data-inputs';
 
 // Create Virtual Routes
 
-const RunComputationImport = createFileRoute('/run-computation')()
-const ContributeDataImport = createFileRoute('/contribute-data')()
-const CompareDataImport = createFileRoute('/compare-data')()
+const RunComputationImport = createFileRoute('/run-computation')();
+const QualityBenchmarkImport = createFileRoute('/quality-benchmark')();
+const ContributeDataImport = createFileRoute('/contribute-data')();
+const CompareDataImport = createFileRoute('/compare-data')();
 const RunComputationLayoutIdImport = createFileRoute(
-  '/run-computation/_layout/$id',
-)()
+  '/run-computation/_layout/$id'
+)();
 
 // Create/Update Routes
 
@@ -56,452 +61,516 @@ const RunComputationRoute = RunComputationImport.update({
   id: '/run-computation',
   path: '/run-computation',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const QualityBenchmarkRoute = QualityBenchmarkImport.update({
+  id: '/quality-benchmark',
+  path: '/quality-benchmark',
+  getParentRoute: () => rootRoute,
+} as any);
 
 const ContributeDataRoute = ContributeDataImport.update({
   id: '/contribute-data',
   path: '/contribute-data',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const CompareDataRoute = CompareDataImport.update({
   id: '/compare-data',
   path: '/compare-data',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const SearchDataRepositoriesIndexRoute =
   SearchDataRepositoriesIndexImport.update({
     id: '/search-data-repositories/',
     path: '/search-data-repositories/',
     getParentRoute: () => rootRoute,
-  } as any)
+  } as any);
+
+const QualityBenchmarkIndexRoute = QualityBenchmarkIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => QualityBenchmarkRoute,
+} as any);
 
 const PlaygroundIndexRoute = PlaygroundIndexImport.update({
   id: '/playground/',
   path: '/playground/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const MonitorActivitiesIndexRoute = MonitorActivitiesIndexImport.update({
   id: '/monitor-activities/',
   path: '/monitor-activities/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const ExploreDataIndexRoute = ExploreDataIndexImport.update({
   id: '/explore-data/',
   path: '/explore-data/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const SearchDataRepositoriesIdRoute = SearchDataRepositoriesIdImport.update({
   id: '/search-data-repositories/$id',
   path: '/search-data-repositories/$id',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const RunComputationLayoutRoute = RunComputationLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => RunComputationRoute,
-} as any)
+} as any);
+
+const QualityBenchmarkCompareRoute = QualityBenchmarkCompareImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => QualityBenchmarkRoute,
+} as any);
+
+const QualityBenchmarkLayoutRoute = QualityBenchmarkLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => QualityBenchmarkRoute,
+} as any);
 
 const MonitorActivitiesDetailRoute = MonitorActivitiesDetailImport.update({
   id: '/monitor-activities/detail',
   path: '/monitor-activities/detail',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const MonitorActivitiesCalendarRoute = MonitorActivitiesCalendarImport.update({
   id: '/monitor-activities/calendar',
   path: '/monitor-activities/calendar',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const ExploreDataIdRoute = ExploreDataIdImport.update({
   id: '/explore-data/$id',
   path: '/explore-data/$id',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const ContributeDataLayoutRoute = ContributeDataLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => ContributeDataRoute,
-} as any)
+} as any);
 
 const CompareDataLayoutRoute = CompareDataLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => CompareDataRoute,
-} as any)
+} as any);
 
 const RunComputationLayoutIdRoute = RunComputationLayoutIdImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => RunComputationLayoutRoute,
-} as any)
+} as any);
 
 const RunComputationLayoutIndexRoute = RunComputationLayoutIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => RunComputationLayoutRoute,
-} as any)
+} as any);
 
 const ContributeDataLayoutIndexRoute = ContributeDataLayoutIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ContributeDataLayoutRoute,
-} as any)
+} as any);
 
 const CompareDataLayoutIndexRoute = CompareDataLayoutIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CompareDataLayoutRoute,
-} as any)
+} as any);
+
+const QualityBenchmarkReportIdRoute = QualityBenchmarkReportIdImport.update({
+  id: '/report/$id',
+  path: '/report/$id',
+  getParentRoute: () => QualityBenchmarkRoute,
+} as any);
 
 const ExploreDataVisualizeIdRoute = ExploreDataVisualizeIdImport.update({
   id: '/explore-data/visualize/$id',
   path: '/explore-data/visualize/$id',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const ExploreDataDetailIdRoute = ExploreDataDetailIdImport.update({
   id: '/explore-data/detail/$id',
   path: '/explore-data/detail/$id',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const ContributeDataLayoutReviewRoute = ContributeDataLayoutReviewImport.update(
   {
     id: '/review',
     path: '/review',
     getParentRoute: () => ContributeDataLayoutRoute,
-  } as any,
-)
+  } as any
+);
 
 const ContributeDataLayoutPortalRoute = ContributeDataLayoutPortalImport.update(
   {
     id: '/portal',
     path: '/portal',
     getParentRoute: () => ContributeDataLayoutRoute,
-  } as any,
-)
+  } as any
+);
 
 const ContributeDataLayoutNewRoute = ContributeDataLayoutNewImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => ContributeDataLayoutRoute,
-} as any)
+} as any);
 
 const CompareDataLayoutNewRoute = CompareDataLayoutNewImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => CompareDataLayoutRoute,
-} as any)
+} as any);
 
 const CompareDataLayoutCompareRoute = CompareDataLayoutCompareImport.update({
   id: '/compare',
   path: '/compare',
   getParentRoute: () => CompareDataLayoutRoute,
-} as any)
+} as any);
 
 const RunComputationLayoutIdLayoutRoute =
   RunComputationLayoutIdLayoutImport.update({
     id: '/_layout',
     getParentRoute: () => RunComputationLayoutIdRoute,
-  } as any)
+  } as any);
 
 const RunComputationLayoutIdLayoutSettingsRoute =
   RunComputationLayoutIdLayoutSettingsImport.update({
     id: '/settings',
     path: '/settings',
     getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any)
+  } as any);
 
 const RunComputationLayoutIdLayoutRunningRoute =
   RunComputationLayoutIdLayoutRunningImport.update({
     id: '/running',
     path: '/running',
     getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any)
+  } as any);
 
 const RunComputationLayoutIdLayoutResultsRoute =
   RunComputationLayoutIdLayoutResultsImport.update({
     id: '/results',
     path: '/results',
     getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any)
+  } as any);
 
 const RunComputationLayoutIdLayoutDataInputsRoute =
   RunComputationLayoutIdLayoutDataInputsImport.update({
     id: '/data-inputs',
     path: '/data-inputs',
     getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any)
+  } as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/compare-data': {
-      id: '/compare-data'
-      path: '/compare-data'
-      fullPath: '/compare-data'
-      preLoaderRoute: typeof CompareDataImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/compare-data';
+      path: '/compare-data';
+      fullPath: '/compare-data';
+      preLoaderRoute: typeof CompareDataImport;
+      parentRoute: typeof rootRoute;
+    };
     '/compare-data/_layout': {
-      id: '/compare-data/_layout'
-      path: '/compare-data'
-      fullPath: '/compare-data'
-      preLoaderRoute: typeof CompareDataLayoutImport
-      parentRoute: typeof CompareDataRoute
-    }
+      id: '/compare-data/_layout';
+      path: '/compare-data';
+      fullPath: '/compare-data';
+      preLoaderRoute: typeof CompareDataLayoutImport;
+      parentRoute: typeof CompareDataRoute;
+    };
     '/contribute-data': {
-      id: '/contribute-data'
-      path: '/contribute-data'
-      fullPath: '/contribute-data'
-      preLoaderRoute: typeof ContributeDataImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/contribute-data';
+      path: '/contribute-data';
+      fullPath: '/contribute-data';
+      preLoaderRoute: typeof ContributeDataImport;
+      parentRoute: typeof rootRoute;
+    };
     '/contribute-data/_layout': {
-      id: '/contribute-data/_layout'
-      path: '/contribute-data'
-      fullPath: '/contribute-data'
-      preLoaderRoute: typeof ContributeDataLayoutImport
-      parentRoute: typeof ContributeDataRoute
-    }
+      id: '/contribute-data/_layout';
+      path: '/contribute-data';
+      fullPath: '/contribute-data';
+      preLoaderRoute: typeof ContributeDataLayoutImport;
+      parentRoute: typeof ContributeDataRoute;
+    };
     '/explore-data/$id': {
-      id: '/explore-data/$id'
-      path: '/explore-data/$id'
-      fullPath: '/explore-data/$id'
-      preLoaderRoute: typeof ExploreDataIdImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/explore-data/$id';
+      path: '/explore-data/$id';
+      fullPath: '/explore-data/$id';
+      preLoaderRoute: typeof ExploreDataIdImport;
+      parentRoute: typeof rootRoute;
+    };
     '/monitor-activities/calendar': {
-      id: '/monitor-activities/calendar'
-      path: '/monitor-activities/calendar'
-      fullPath: '/monitor-activities/calendar'
-      preLoaderRoute: typeof MonitorActivitiesCalendarImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/monitor-activities/calendar';
+      path: '/monitor-activities/calendar';
+      fullPath: '/monitor-activities/calendar';
+      preLoaderRoute: typeof MonitorActivitiesCalendarImport;
+      parentRoute: typeof rootRoute;
+    };
     '/monitor-activities/detail': {
-      id: '/monitor-activities/detail'
-      path: '/monitor-activities/detail'
-      fullPath: '/monitor-activities/detail'
-      preLoaderRoute: typeof MonitorActivitiesDetailImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/monitor-activities/detail';
+      path: '/monitor-activities/detail';
+      fullPath: '/monitor-activities/detail';
+      preLoaderRoute: typeof MonitorActivitiesDetailImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/quality-benchmark': {
+      id: '/quality-benchmark';
+      path: '/quality-benchmark';
+      fullPath: '/quality-benchmark';
+      preLoaderRoute: typeof QualityBenchmarkImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/quality-benchmark/_layout': {
+      id: '/quality-benchmark/_layout';
+      path: '/quality-benchmark';
+      fullPath: '/quality-benchmark';
+      preLoaderRoute: typeof QualityBenchmarkLayoutImport;
+      parentRoute: typeof QualityBenchmarkRoute;
+    };
+    '/quality-benchmark/compare': {
+      id: '/quality-benchmark/compare';
+      path: '/compare';
+      fullPath: '/quality-benchmark/compare';
+      preLoaderRoute: typeof QualityBenchmarkCompareImport;
+      parentRoute: typeof QualityBenchmarkImport;
+    };
     '/run-computation': {
-      id: '/run-computation'
-      path: '/run-computation'
-      fullPath: '/run-computation'
-      preLoaderRoute: typeof RunComputationImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/run-computation';
+      path: '/run-computation';
+      fullPath: '/run-computation';
+      preLoaderRoute: typeof RunComputationImport;
+      parentRoute: typeof rootRoute;
+    };
     '/run-computation/_layout': {
-      id: '/run-computation/_layout'
-      path: '/run-computation'
-      fullPath: '/run-computation'
-      preLoaderRoute: typeof RunComputationLayoutImport
-      parentRoute: typeof RunComputationRoute
-    }
+      id: '/run-computation/_layout';
+      path: '/run-computation';
+      fullPath: '/run-computation';
+      preLoaderRoute: typeof RunComputationLayoutImport;
+      parentRoute: typeof RunComputationRoute;
+    };
     '/search-data-repositories/$id': {
-      id: '/search-data-repositories/$id'
-      path: '/search-data-repositories/$id'
-      fullPath: '/search-data-repositories/$id'
-      preLoaderRoute: typeof SearchDataRepositoriesIdImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/search-data-repositories/$id';
+      path: '/search-data-repositories/$id';
+      fullPath: '/search-data-repositories/$id';
+      preLoaderRoute: typeof SearchDataRepositoriesIdImport;
+      parentRoute: typeof rootRoute;
+    };
     '/explore-data/': {
-      id: '/explore-data/'
-      path: '/explore-data'
-      fullPath: '/explore-data'
-      preLoaderRoute: typeof ExploreDataIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/explore-data/';
+      path: '/explore-data';
+      fullPath: '/explore-data';
+      preLoaderRoute: typeof ExploreDataIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/monitor-activities/': {
-      id: '/monitor-activities/'
-      path: '/monitor-activities'
-      fullPath: '/monitor-activities'
-      preLoaderRoute: typeof MonitorActivitiesIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/monitor-activities/';
+      path: '/monitor-activities';
+      fullPath: '/monitor-activities';
+      preLoaderRoute: typeof MonitorActivitiesIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/playground/': {
-      id: '/playground/'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/playground/';
+      path: '/playground';
+      fullPath: '/playground';
+      preLoaderRoute: typeof PlaygroundIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/quality-benchmark/': {
+      id: '/quality-benchmark/';
+      path: '/';
+      fullPath: '/quality-benchmark/';
+      preLoaderRoute: typeof QualityBenchmarkIndexImport;
+      parentRoute: typeof QualityBenchmarkImport;
+    };
     '/search-data-repositories/': {
-      id: '/search-data-repositories/'
-      path: '/search-data-repositories'
-      fullPath: '/search-data-repositories'
-      preLoaderRoute: typeof SearchDataRepositoriesIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/search-data-repositories/';
+      path: '/search-data-repositories';
+      fullPath: '/search-data-repositories';
+      preLoaderRoute: typeof SearchDataRepositoriesIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/compare-data/_layout/compare': {
-      id: '/compare-data/_layout/compare'
-      path: '/compare'
-      fullPath: '/compare-data/compare'
-      preLoaderRoute: typeof CompareDataLayoutCompareImport
-      parentRoute: typeof CompareDataLayoutImport
-    }
+      id: '/compare-data/_layout/compare';
+      path: '/compare';
+      fullPath: '/compare-data/compare';
+      preLoaderRoute: typeof CompareDataLayoutCompareImport;
+      parentRoute: typeof CompareDataLayoutImport;
+    };
     '/compare-data/_layout/new': {
-      id: '/compare-data/_layout/new'
-      path: '/new'
-      fullPath: '/compare-data/new'
-      preLoaderRoute: typeof CompareDataLayoutNewImport
-      parentRoute: typeof CompareDataLayoutImport
-    }
+      id: '/compare-data/_layout/new';
+      path: '/new';
+      fullPath: '/compare-data/new';
+      preLoaderRoute: typeof CompareDataLayoutNewImport;
+      parentRoute: typeof CompareDataLayoutImport;
+    };
     '/contribute-data/_layout/new': {
-      id: '/contribute-data/_layout/new'
-      path: '/new'
-      fullPath: '/contribute-data/new'
-      preLoaderRoute: typeof ContributeDataLayoutNewImport
-      parentRoute: typeof ContributeDataLayoutImport
-    }
+      id: '/contribute-data/_layout/new';
+      path: '/new';
+      fullPath: '/contribute-data/new';
+      preLoaderRoute: typeof ContributeDataLayoutNewImport;
+      parentRoute: typeof ContributeDataLayoutImport;
+    };
     '/contribute-data/_layout/portal': {
-      id: '/contribute-data/_layout/portal'
-      path: '/portal'
-      fullPath: '/contribute-data/portal'
-      preLoaderRoute: typeof ContributeDataLayoutPortalImport
-      parentRoute: typeof ContributeDataLayoutImport
-    }
+      id: '/contribute-data/_layout/portal';
+      path: '/portal';
+      fullPath: '/contribute-data/portal';
+      preLoaderRoute: typeof ContributeDataLayoutPortalImport;
+      parentRoute: typeof ContributeDataLayoutImport;
+    };
     '/contribute-data/_layout/review': {
-      id: '/contribute-data/_layout/review'
-      path: '/review'
-      fullPath: '/contribute-data/review'
-      preLoaderRoute: typeof ContributeDataLayoutReviewImport
-      parentRoute: typeof ContributeDataLayoutImport
-    }
+      id: '/contribute-data/_layout/review';
+      path: '/review';
+      fullPath: '/contribute-data/review';
+      preLoaderRoute: typeof ContributeDataLayoutReviewImport;
+      parentRoute: typeof ContributeDataLayoutImport;
+    };
     '/explore-data/detail/$id': {
-      id: '/explore-data/detail/$id'
-      path: '/explore-data/detail/$id'
-      fullPath: '/explore-data/detail/$id'
-      preLoaderRoute: typeof ExploreDataDetailIdImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/explore-data/detail/$id';
+      path: '/explore-data/detail/$id';
+      fullPath: '/explore-data/detail/$id';
+      preLoaderRoute: typeof ExploreDataDetailIdImport;
+      parentRoute: typeof rootRoute;
+    };
     '/explore-data/visualize/$id': {
-      id: '/explore-data/visualize/$id'
-      path: '/explore-data/visualize/$id'
-      fullPath: '/explore-data/visualize/$id'
-      preLoaderRoute: typeof ExploreDataVisualizeIdImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/explore-data/visualize/$id';
+      path: '/explore-data/visualize/$id';
+      fullPath: '/explore-data/visualize/$id';
+      preLoaderRoute: typeof ExploreDataVisualizeIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/quality-benchmark/report/$id': {
+      id: '/quality-benchmark/report/$id';
+      path: '/report/$id';
+      fullPath: '/quality-benchmark/report/$id';
+      preLoaderRoute: typeof QualityBenchmarkReportIdImport;
+      parentRoute: typeof QualityBenchmarkImport;
+    };
     '/compare-data/_layout/': {
-      id: '/compare-data/_layout/'
-      path: '/'
-      fullPath: '/compare-data/'
-      preLoaderRoute: typeof CompareDataLayoutIndexImport
-      parentRoute: typeof CompareDataLayoutImport
-    }
+      id: '/compare-data/_layout/';
+      path: '/';
+      fullPath: '/compare-data/';
+      preLoaderRoute: typeof CompareDataLayoutIndexImport;
+      parentRoute: typeof CompareDataLayoutImport;
+    };
     '/contribute-data/_layout/': {
-      id: '/contribute-data/_layout/'
-      path: '/'
-      fullPath: '/contribute-data/'
-      preLoaderRoute: typeof ContributeDataLayoutIndexImport
-      parentRoute: typeof ContributeDataLayoutImport
-    }
+      id: '/contribute-data/_layout/';
+      path: '/';
+      fullPath: '/contribute-data/';
+      preLoaderRoute: typeof ContributeDataLayoutIndexImport;
+      parentRoute: typeof ContributeDataLayoutImport;
+    };
     '/run-computation/_layout/': {
-      id: '/run-computation/_layout/'
-      path: '/'
-      fullPath: '/run-computation/'
-      preLoaderRoute: typeof RunComputationLayoutIndexImport
-      parentRoute: typeof RunComputationLayoutImport
-    }
+      id: '/run-computation/_layout/';
+      path: '/';
+      fullPath: '/run-computation/';
+      preLoaderRoute: typeof RunComputationLayoutIndexImport;
+      parentRoute: typeof RunComputationLayoutImport;
+    };
     '/run-computation/_layout/$id': {
-      id: '/run-computation/_layout/$id'
-      path: '/$id'
-      fullPath: '/run-computation/$id'
-      preLoaderRoute: typeof RunComputationLayoutIdImport
-      parentRoute: typeof RunComputationLayoutImport
-    }
+      id: '/run-computation/_layout/$id';
+      path: '/$id';
+      fullPath: '/run-computation/$id';
+      preLoaderRoute: typeof RunComputationLayoutIdImport;
+      parentRoute: typeof RunComputationLayoutImport;
+    };
     '/run-computation/_layout/$id/_layout': {
-      id: '/run-computation/_layout/$id/_layout'
-      path: '/$id'
-      fullPath: '/run-computation/$id'
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutImport
-      parentRoute: typeof RunComputationLayoutIdRoute
-    }
+      id: '/run-computation/_layout/$id/_layout';
+      path: '/$id';
+      fullPath: '/run-computation/$id';
+      preLoaderRoute: typeof RunComputationLayoutIdLayoutImport;
+      parentRoute: typeof RunComputationLayoutIdRoute;
+    };
     '/run-computation/_layout/$id/_layout/data-inputs': {
-      id: '/run-computation/_layout/$id/_layout/data-inputs'
-      path: '/data-inputs'
-      fullPath: '/run-computation/$id/data-inputs'
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutDataInputsImport
-      parentRoute: typeof RunComputationLayoutIdLayoutImport
-    }
+      id: '/run-computation/_layout/$id/_layout/data-inputs';
+      path: '/data-inputs';
+      fullPath: '/run-computation/$id/data-inputs';
+      preLoaderRoute: typeof RunComputationLayoutIdLayoutDataInputsImport;
+      parentRoute: typeof RunComputationLayoutIdLayoutImport;
+    };
     '/run-computation/_layout/$id/_layout/results': {
-      id: '/run-computation/_layout/$id/_layout/results'
-      path: '/results'
-      fullPath: '/run-computation/$id/results'
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutResultsImport
-      parentRoute: typeof RunComputationLayoutIdLayoutImport
-    }
+      id: '/run-computation/_layout/$id/_layout/results';
+      path: '/results';
+      fullPath: '/run-computation/$id/results';
+      preLoaderRoute: typeof RunComputationLayoutIdLayoutResultsImport;
+      parentRoute: typeof RunComputationLayoutIdLayoutImport;
+    };
     '/run-computation/_layout/$id/_layout/running': {
-      id: '/run-computation/_layout/$id/_layout/running'
-      path: '/running'
-      fullPath: '/run-computation/$id/running'
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutRunningImport
-      parentRoute: typeof RunComputationLayoutIdLayoutImport
-    }
+      id: '/run-computation/_layout/$id/_layout/running';
+      path: '/running';
+      fullPath: '/run-computation/$id/running';
+      preLoaderRoute: typeof RunComputationLayoutIdLayoutRunningImport;
+      parentRoute: typeof RunComputationLayoutIdLayoutImport;
+    };
     '/run-computation/_layout/$id/_layout/settings': {
-      id: '/run-computation/_layout/$id/_layout/settings'
-      path: '/settings'
-      fullPath: '/run-computation/$id/settings'
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutSettingsImport
-      parentRoute: typeof RunComputationLayoutIdLayoutImport
-    }
+      id: '/run-computation/_layout/$id/_layout/settings';
+      path: '/settings';
+      fullPath: '/run-computation/$id/settings';
+      preLoaderRoute: typeof RunComputationLayoutIdLayoutSettingsImport;
+      parentRoute: typeof RunComputationLayoutIdLayoutImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface CompareDataLayoutRouteChildren {
-  CompareDataLayoutCompareRoute: typeof CompareDataLayoutCompareRoute
-  CompareDataLayoutNewRoute: typeof CompareDataLayoutNewRoute
-  CompareDataLayoutIndexRoute: typeof CompareDataLayoutIndexRoute
+  CompareDataLayoutCompareRoute: typeof CompareDataLayoutCompareRoute;
+  CompareDataLayoutNewRoute: typeof CompareDataLayoutNewRoute;
+  CompareDataLayoutIndexRoute: typeof CompareDataLayoutIndexRoute;
 }
 
 const CompareDataLayoutRouteChildren: CompareDataLayoutRouteChildren = {
   CompareDataLayoutCompareRoute: CompareDataLayoutCompareRoute,
   CompareDataLayoutNewRoute: CompareDataLayoutNewRoute,
   CompareDataLayoutIndexRoute: CompareDataLayoutIndexRoute,
-}
+};
 
 const CompareDataLayoutRouteWithChildren =
-  CompareDataLayoutRoute._addFileChildren(CompareDataLayoutRouteChildren)
+  CompareDataLayoutRoute._addFileChildren(CompareDataLayoutRouteChildren);
 
 interface CompareDataRouteChildren {
-  CompareDataLayoutRoute: typeof CompareDataLayoutRouteWithChildren
+  CompareDataLayoutRoute: typeof CompareDataLayoutRouteWithChildren;
 }
 
 const CompareDataRouteChildren: CompareDataRouteChildren = {
   CompareDataLayoutRoute: CompareDataLayoutRouteWithChildren,
-}
+};
 
 const CompareDataRouteWithChildren = CompareDataRoute._addFileChildren(
-  CompareDataRouteChildren,
-)
+  CompareDataRouteChildren
+);
 
 interface ContributeDataLayoutRouteChildren {
-  ContributeDataLayoutNewRoute: typeof ContributeDataLayoutNewRoute
-  ContributeDataLayoutPortalRoute: typeof ContributeDataLayoutPortalRoute
-  ContributeDataLayoutReviewRoute: typeof ContributeDataLayoutReviewRoute
-  ContributeDataLayoutIndexRoute: typeof ContributeDataLayoutIndexRoute
+  ContributeDataLayoutNewRoute: typeof ContributeDataLayoutNewRoute;
+  ContributeDataLayoutPortalRoute: typeof ContributeDataLayoutPortalRoute;
+  ContributeDataLayoutReviewRoute: typeof ContributeDataLayoutReviewRoute;
+  ContributeDataLayoutIndexRoute: typeof ContributeDataLayoutIndexRoute;
 }
 
 const ContributeDataLayoutRouteChildren: ContributeDataLayoutRouteChildren = {
@@ -509,28 +578,45 @@ const ContributeDataLayoutRouteChildren: ContributeDataLayoutRouteChildren = {
   ContributeDataLayoutPortalRoute: ContributeDataLayoutPortalRoute,
   ContributeDataLayoutReviewRoute: ContributeDataLayoutReviewRoute,
   ContributeDataLayoutIndexRoute: ContributeDataLayoutIndexRoute,
-}
+};
 
 const ContributeDataLayoutRouteWithChildren =
-  ContributeDataLayoutRoute._addFileChildren(ContributeDataLayoutRouteChildren)
+  ContributeDataLayoutRoute._addFileChildren(ContributeDataLayoutRouteChildren);
 
 interface ContributeDataRouteChildren {
-  ContributeDataLayoutRoute: typeof ContributeDataLayoutRouteWithChildren
+  ContributeDataLayoutRoute: typeof ContributeDataLayoutRouteWithChildren;
 }
 
 const ContributeDataRouteChildren: ContributeDataRouteChildren = {
   ContributeDataLayoutRoute: ContributeDataLayoutRouteWithChildren,
-}
+};
 
 const ContributeDataRouteWithChildren = ContributeDataRoute._addFileChildren(
-  ContributeDataRouteChildren,
-)
+  ContributeDataRouteChildren
+);
+
+interface QualityBenchmarkRouteChildren {
+  QualityBenchmarkLayoutRoute: typeof QualityBenchmarkLayoutRoute;
+  QualityBenchmarkCompareRoute: typeof QualityBenchmarkCompareRoute;
+  QualityBenchmarkIndexRoute: typeof QualityBenchmarkIndexRoute;
+  QualityBenchmarkReportIdRoute: typeof QualityBenchmarkReportIdRoute;
+}
+
+const QualityBenchmarkRouteChildren: QualityBenchmarkRouteChildren = {
+  QualityBenchmarkLayoutRoute: QualityBenchmarkLayoutRoute,
+  QualityBenchmarkCompareRoute: QualityBenchmarkCompareRoute,
+  QualityBenchmarkIndexRoute: QualityBenchmarkIndexRoute,
+  QualityBenchmarkReportIdRoute: QualityBenchmarkReportIdRoute,
+};
+
+const QualityBenchmarkRouteWithChildren =
+  QualityBenchmarkRoute._addFileChildren(QualityBenchmarkRouteChildren);
 
 interface RunComputationLayoutIdLayoutRouteChildren {
-  RunComputationLayoutIdLayoutDataInputsRoute: typeof RunComputationLayoutIdLayoutDataInputsRoute
-  RunComputationLayoutIdLayoutResultsRoute: typeof RunComputationLayoutIdLayoutResultsRoute
-  RunComputationLayoutIdLayoutRunningRoute: typeof RunComputationLayoutIdLayoutRunningRoute
-  RunComputationLayoutIdLayoutSettingsRoute: typeof RunComputationLayoutIdLayoutSettingsRoute
+  RunComputationLayoutIdLayoutDataInputsRoute: typeof RunComputationLayoutIdLayoutDataInputsRoute;
+  RunComputationLayoutIdLayoutResultsRoute: typeof RunComputationLayoutIdLayoutResultsRoute;
+  RunComputationLayoutIdLayoutRunningRoute: typeof RunComputationLayoutIdLayoutRunningRoute;
+  RunComputationLayoutIdLayoutSettingsRoute: typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 const RunComputationLayoutIdLayoutRouteChildren: RunComputationLayoutIdLayoutRouteChildren =
@@ -543,147 +629,159 @@ const RunComputationLayoutIdLayoutRouteChildren: RunComputationLayoutIdLayoutRou
       RunComputationLayoutIdLayoutRunningRoute,
     RunComputationLayoutIdLayoutSettingsRoute:
       RunComputationLayoutIdLayoutSettingsRoute,
-  }
+  };
 
 const RunComputationLayoutIdLayoutRouteWithChildren =
   RunComputationLayoutIdLayoutRoute._addFileChildren(
-    RunComputationLayoutIdLayoutRouteChildren,
-  )
+    RunComputationLayoutIdLayoutRouteChildren
+  );
 
 interface RunComputationLayoutIdRouteChildren {
-  RunComputationLayoutIdLayoutRoute: typeof RunComputationLayoutIdLayoutRouteWithChildren
+  RunComputationLayoutIdLayoutRoute: typeof RunComputationLayoutIdLayoutRouteWithChildren;
 }
 
 const RunComputationLayoutIdRouteChildren: RunComputationLayoutIdRouteChildren =
   {
     RunComputationLayoutIdLayoutRoute:
       RunComputationLayoutIdLayoutRouteWithChildren,
-  }
+  };
 
 const RunComputationLayoutIdRouteWithChildren =
   RunComputationLayoutIdRoute._addFileChildren(
-    RunComputationLayoutIdRouteChildren,
-  )
+    RunComputationLayoutIdRouteChildren
+  );
 
 interface RunComputationLayoutRouteChildren {
-  RunComputationLayoutIndexRoute: typeof RunComputationLayoutIndexRoute
-  RunComputationLayoutIdRoute: typeof RunComputationLayoutIdRouteWithChildren
+  RunComputationLayoutIndexRoute: typeof RunComputationLayoutIndexRoute;
+  RunComputationLayoutIdRoute: typeof RunComputationLayoutIdRouteWithChildren;
 }
 
 const RunComputationLayoutRouteChildren: RunComputationLayoutRouteChildren = {
   RunComputationLayoutIndexRoute: RunComputationLayoutIndexRoute,
   RunComputationLayoutIdRoute: RunComputationLayoutIdRouteWithChildren,
-}
+};
 
 const RunComputationLayoutRouteWithChildren =
-  RunComputationLayoutRoute._addFileChildren(RunComputationLayoutRouteChildren)
+  RunComputationLayoutRoute._addFileChildren(RunComputationLayoutRouteChildren);
 
 interface RunComputationRouteChildren {
-  RunComputationLayoutRoute: typeof RunComputationLayoutRouteWithChildren
+  RunComputationLayoutRoute: typeof RunComputationLayoutRouteWithChildren;
 }
 
 const RunComputationRouteChildren: RunComputationRouteChildren = {
   RunComputationLayoutRoute: RunComputationLayoutRouteWithChildren,
-}
+};
 
 const RunComputationRouteWithChildren = RunComputationRoute._addFileChildren(
-  RunComputationRouteChildren,
-)
+  RunComputationRouteChildren
+);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/compare-data': typeof CompareDataLayoutRouteWithChildren
-  '/contribute-data': typeof ContributeDataLayoutRouteWithChildren
-  '/explore-data/$id': typeof ExploreDataIdRoute
-  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute
-  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute
-  '/run-computation': typeof RunComputationLayoutRouteWithChildren
-  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute
-  '/explore-data': typeof ExploreDataIndexRoute
-  '/monitor-activities': typeof MonitorActivitiesIndexRoute
-  '/playground': typeof PlaygroundIndexRoute
-  '/search-data-repositories': typeof SearchDataRepositoriesIndexRoute
-  '/compare-data/compare': typeof CompareDataLayoutCompareRoute
-  '/compare-data/new': typeof CompareDataLayoutNewRoute
-  '/contribute-data/new': typeof ContributeDataLayoutNewRoute
-  '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute
-  '/contribute-data/review': typeof ContributeDataLayoutReviewRoute
-  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute
-  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute
-  '/compare-data/': typeof CompareDataLayoutIndexRoute
-  '/contribute-data/': typeof ContributeDataLayoutIndexRoute
-  '/run-computation/': typeof RunComputationLayoutIndexRoute
-  '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren
-  '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute
-  '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute
-  '/run-computation/$id/running': typeof RunComputationLayoutIdLayoutRunningRoute
-  '/run-computation/$id/settings': typeof RunComputationLayoutIdLayoutSettingsRoute
+  '/': typeof IndexRoute;
+  '/compare-data': typeof CompareDataLayoutRouteWithChildren;
+  '/contribute-data': typeof ContributeDataLayoutRouteWithChildren;
+  '/explore-data/$id': typeof ExploreDataIdRoute;
+  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute;
+  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute;
+  '/quality-benchmark': typeof QualityBenchmarkLayoutRoute;
+  '/quality-benchmark/compare': typeof QualityBenchmarkCompareRoute;
+  '/run-computation': typeof RunComputationLayoutRouteWithChildren;
+  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute;
+  '/explore-data': typeof ExploreDataIndexRoute;
+  '/monitor-activities': typeof MonitorActivitiesIndexRoute;
+  '/playground': typeof PlaygroundIndexRoute;
+  '/quality-benchmark/': typeof QualityBenchmarkIndexRoute;
+  '/search-data-repositories': typeof SearchDataRepositoriesIndexRoute;
+  '/compare-data/compare': typeof CompareDataLayoutCompareRoute;
+  '/compare-data/new': typeof CompareDataLayoutNewRoute;
+  '/contribute-data/new': typeof ContributeDataLayoutNewRoute;
+  '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute;
+  '/contribute-data/review': typeof ContributeDataLayoutReviewRoute;
+  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
+  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
+  '/quality-benchmark/report/$id': typeof QualityBenchmarkReportIdRoute;
+  '/compare-data/': typeof CompareDataLayoutIndexRoute;
+  '/contribute-data/': typeof ContributeDataLayoutIndexRoute;
+  '/run-computation/': typeof RunComputationLayoutIndexRoute;
+  '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren;
+  '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
+  '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute;
+  '/run-computation/$id/running': typeof RunComputationLayoutIdLayoutRunningRoute;
+  '/run-computation/$id/settings': typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/compare-data': typeof CompareDataLayoutIndexRoute
-  '/contribute-data': typeof ContributeDataLayoutIndexRoute
-  '/explore-data/$id': typeof ExploreDataIdRoute
-  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute
-  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute
-  '/run-computation': typeof RunComputationLayoutIndexRoute
-  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute
-  '/explore-data': typeof ExploreDataIndexRoute
-  '/monitor-activities': typeof MonitorActivitiesIndexRoute
-  '/playground': typeof PlaygroundIndexRoute
-  '/search-data-repositories': typeof SearchDataRepositoriesIndexRoute
-  '/compare-data/compare': typeof CompareDataLayoutCompareRoute
-  '/compare-data/new': typeof CompareDataLayoutNewRoute
-  '/contribute-data/new': typeof ContributeDataLayoutNewRoute
-  '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute
-  '/contribute-data/review': typeof ContributeDataLayoutReviewRoute
-  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute
-  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute
-  '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren
-  '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute
-  '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute
-  '/run-computation/$id/running': typeof RunComputationLayoutIdLayoutRunningRoute
-  '/run-computation/$id/settings': typeof RunComputationLayoutIdLayoutSettingsRoute
+  '/': typeof IndexRoute;
+  '/compare-data': typeof CompareDataLayoutIndexRoute;
+  '/contribute-data': typeof ContributeDataLayoutIndexRoute;
+  '/explore-data/$id': typeof ExploreDataIdRoute;
+  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute;
+  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute;
+  '/quality-benchmark': typeof QualityBenchmarkIndexRoute;
+  '/quality-benchmark/compare': typeof QualityBenchmarkCompareRoute;
+  '/run-computation': typeof RunComputationLayoutIndexRoute;
+  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute;
+  '/explore-data': typeof ExploreDataIndexRoute;
+  '/monitor-activities': typeof MonitorActivitiesIndexRoute;
+  '/playground': typeof PlaygroundIndexRoute;
+  '/search-data-repositories': typeof SearchDataRepositoriesIndexRoute;
+  '/compare-data/compare': typeof CompareDataLayoutCompareRoute;
+  '/compare-data/new': typeof CompareDataLayoutNewRoute;
+  '/contribute-data/new': typeof ContributeDataLayoutNewRoute;
+  '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute;
+  '/contribute-data/review': typeof ContributeDataLayoutReviewRoute;
+  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
+  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
+  '/quality-benchmark/report/$id': typeof QualityBenchmarkReportIdRoute;
+  '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren;
+  '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
+  '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute;
+  '/run-computation/$id/running': typeof RunComputationLayoutIdLayoutRunningRoute;
+  '/run-computation/$id/settings': typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/compare-data': typeof CompareDataRouteWithChildren
-  '/compare-data/_layout': typeof CompareDataLayoutRouteWithChildren
-  '/contribute-data': typeof ContributeDataRouteWithChildren
-  '/contribute-data/_layout': typeof ContributeDataLayoutRouteWithChildren
-  '/explore-data/$id': typeof ExploreDataIdRoute
-  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute
-  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute
-  '/run-computation': typeof RunComputationRouteWithChildren
-  '/run-computation/_layout': typeof RunComputationLayoutRouteWithChildren
-  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute
-  '/explore-data/': typeof ExploreDataIndexRoute
-  '/monitor-activities/': typeof MonitorActivitiesIndexRoute
-  '/playground/': typeof PlaygroundIndexRoute
-  '/search-data-repositories/': typeof SearchDataRepositoriesIndexRoute
-  '/compare-data/_layout/compare': typeof CompareDataLayoutCompareRoute
-  '/compare-data/_layout/new': typeof CompareDataLayoutNewRoute
-  '/contribute-data/_layout/new': typeof ContributeDataLayoutNewRoute
-  '/contribute-data/_layout/portal': typeof ContributeDataLayoutPortalRoute
-  '/contribute-data/_layout/review': typeof ContributeDataLayoutReviewRoute
-  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute
-  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute
-  '/compare-data/_layout/': typeof CompareDataLayoutIndexRoute
-  '/contribute-data/_layout/': typeof ContributeDataLayoutIndexRoute
-  '/run-computation/_layout/': typeof RunComputationLayoutIndexRoute
-  '/run-computation/_layout/$id': typeof RunComputationLayoutIdRouteWithChildren
-  '/run-computation/_layout/$id/_layout': typeof RunComputationLayoutIdLayoutRouteWithChildren
-  '/run-computation/_layout/$id/_layout/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute
-  '/run-computation/_layout/$id/_layout/results': typeof RunComputationLayoutIdLayoutResultsRoute
-  '/run-computation/_layout/$id/_layout/running': typeof RunComputationLayoutIdLayoutRunningRoute
-  '/run-computation/_layout/$id/_layout/settings': typeof RunComputationLayoutIdLayoutSettingsRoute
+  __root__: typeof rootRoute;
+  '/': typeof IndexRoute;
+  '/compare-data': typeof CompareDataRouteWithChildren;
+  '/compare-data/_layout': typeof CompareDataLayoutRouteWithChildren;
+  '/contribute-data': typeof ContributeDataRouteWithChildren;
+  '/contribute-data/_layout': typeof ContributeDataLayoutRouteWithChildren;
+  '/explore-data/$id': typeof ExploreDataIdRoute;
+  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute;
+  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute;
+  '/quality-benchmark': typeof QualityBenchmarkRouteWithChildren;
+  '/quality-benchmark/_layout': typeof QualityBenchmarkLayoutRoute;
+  '/quality-benchmark/compare': typeof QualityBenchmarkCompareRoute;
+  '/run-computation': typeof RunComputationRouteWithChildren;
+  '/run-computation/_layout': typeof RunComputationLayoutRouteWithChildren;
+  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute;
+  '/explore-data/': typeof ExploreDataIndexRoute;
+  '/monitor-activities/': typeof MonitorActivitiesIndexRoute;
+  '/playground/': typeof PlaygroundIndexRoute;
+  '/quality-benchmark/': typeof QualityBenchmarkIndexRoute;
+  '/search-data-repositories/': typeof SearchDataRepositoriesIndexRoute;
+  '/compare-data/_layout/compare': typeof CompareDataLayoutCompareRoute;
+  '/compare-data/_layout/new': typeof CompareDataLayoutNewRoute;
+  '/contribute-data/_layout/new': typeof ContributeDataLayoutNewRoute;
+  '/contribute-data/_layout/portal': typeof ContributeDataLayoutPortalRoute;
+  '/contribute-data/_layout/review': typeof ContributeDataLayoutReviewRoute;
+  '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
+  '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
+  '/quality-benchmark/report/$id': typeof QualityBenchmarkReportIdRoute;
+  '/compare-data/_layout/': typeof CompareDataLayoutIndexRoute;
+  '/contribute-data/_layout/': typeof ContributeDataLayoutIndexRoute;
+  '/run-computation/_layout/': typeof RunComputationLayoutIndexRoute;
+  '/run-computation/_layout/$id': typeof RunComputationLayoutIdRouteWithChildren;
+  '/run-computation/_layout/$id/_layout': typeof RunComputationLayoutIdLayoutRouteWithChildren;
+  '/run-computation/_layout/$id/_layout/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
+  '/run-computation/_layout/$id/_layout/results': typeof RunComputationLayoutIdLayoutResultsRoute;
+  '/run-computation/_layout/$id/_layout/running': typeof RunComputationLayoutIdLayoutRunningRoute;
+  '/run-computation/_layout/$id/_layout/settings': typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/compare-data'
@@ -691,11 +789,14 @@ export interface FileRouteTypes {
     | '/explore-data/$id'
     | '/monitor-activities/calendar'
     | '/monitor-activities/detail'
+    | '/quality-benchmark'
+    | '/quality-benchmark/compare'
     | '/run-computation'
     | '/search-data-repositories/$id'
     | '/explore-data'
     | '/monitor-activities'
     | '/playground'
+    | '/quality-benchmark/'
     | '/search-data-repositories'
     | '/compare-data/compare'
     | '/compare-data/new'
@@ -704,6 +805,7 @@ export interface FileRouteTypes {
     | '/contribute-data/review'
     | '/explore-data/detail/$id'
     | '/explore-data/visualize/$id'
+    | '/quality-benchmark/report/$id'
     | '/compare-data/'
     | '/contribute-data/'
     | '/run-computation/'
@@ -711,8 +813,8 @@ export interface FileRouteTypes {
     | '/run-computation/$id/data-inputs'
     | '/run-computation/$id/results'
     | '/run-computation/$id/running'
-    | '/run-computation/$id/settings'
-  fileRoutesByTo: FileRoutesByTo
+    | '/run-computation/$id/settings';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/compare-data'
@@ -720,6 +822,8 @@ export interface FileRouteTypes {
     | '/explore-data/$id'
     | '/monitor-activities/calendar'
     | '/monitor-activities/detail'
+    | '/quality-benchmark'
+    | '/quality-benchmark/compare'
     | '/run-computation'
     | '/search-data-repositories/$id'
     | '/explore-data'
@@ -733,11 +837,12 @@ export interface FileRouteTypes {
     | '/contribute-data/review'
     | '/explore-data/detail/$id'
     | '/explore-data/visualize/$id'
+    | '/quality-benchmark/report/$id'
     | '/run-computation/$id'
     | '/run-computation/$id/data-inputs'
     | '/run-computation/$id/results'
     | '/run-computation/$id/running'
-    | '/run-computation/$id/settings'
+    | '/run-computation/$id/settings';
   id:
     | '__root__'
     | '/'
@@ -748,12 +853,16 @@ export interface FileRouteTypes {
     | '/explore-data/$id'
     | '/monitor-activities/calendar'
     | '/monitor-activities/detail'
+    | '/quality-benchmark'
+    | '/quality-benchmark/_layout'
+    | '/quality-benchmark/compare'
     | '/run-computation'
     | '/run-computation/_layout'
     | '/search-data-repositories/$id'
     | '/explore-data/'
     | '/monitor-activities/'
     | '/playground/'
+    | '/quality-benchmark/'
     | '/search-data-repositories/'
     | '/compare-data/_layout/compare'
     | '/compare-data/_layout/new'
@@ -762,6 +871,7 @@ export interface FileRouteTypes {
     | '/contribute-data/_layout/review'
     | '/explore-data/detail/$id'
     | '/explore-data/visualize/$id'
+    | '/quality-benchmark/report/$id'
     | '/compare-data/_layout/'
     | '/contribute-data/_layout/'
     | '/run-computation/_layout/'
@@ -770,25 +880,26 @@ export interface FileRouteTypes {
     | '/run-computation/_layout/$id/_layout/data-inputs'
     | '/run-computation/_layout/$id/_layout/results'
     | '/run-computation/_layout/$id/_layout/running'
-    | '/run-computation/_layout/$id/_layout/settings'
-  fileRoutesById: FileRoutesById
+    | '/run-computation/_layout/$id/_layout/settings';
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CompareDataRoute: typeof CompareDataRouteWithChildren
-  ContributeDataRoute: typeof ContributeDataRouteWithChildren
-  ExploreDataIdRoute: typeof ExploreDataIdRoute
-  MonitorActivitiesCalendarRoute: typeof MonitorActivitiesCalendarRoute
-  MonitorActivitiesDetailRoute: typeof MonitorActivitiesDetailRoute
-  RunComputationRoute: typeof RunComputationRouteWithChildren
-  SearchDataRepositoriesIdRoute: typeof SearchDataRepositoriesIdRoute
-  ExploreDataIndexRoute: typeof ExploreDataIndexRoute
-  MonitorActivitiesIndexRoute: typeof MonitorActivitiesIndexRoute
-  PlaygroundIndexRoute: typeof PlaygroundIndexRoute
-  SearchDataRepositoriesIndexRoute: typeof SearchDataRepositoriesIndexRoute
-  ExploreDataDetailIdRoute: typeof ExploreDataDetailIdRoute
-  ExploreDataVisualizeIdRoute: typeof ExploreDataVisualizeIdRoute
+  IndexRoute: typeof IndexRoute;
+  CompareDataRoute: typeof CompareDataRouteWithChildren;
+  ContributeDataRoute: typeof ContributeDataRouteWithChildren;
+  ExploreDataIdRoute: typeof ExploreDataIdRoute;
+  MonitorActivitiesCalendarRoute: typeof MonitorActivitiesCalendarRoute;
+  MonitorActivitiesDetailRoute: typeof MonitorActivitiesDetailRoute;
+  QualityBenchmarkRoute: typeof QualityBenchmarkRouteWithChildren;
+  RunComputationRoute: typeof RunComputationRouteWithChildren;
+  SearchDataRepositoriesIdRoute: typeof SearchDataRepositoriesIdRoute;
+  ExploreDataIndexRoute: typeof ExploreDataIndexRoute;
+  MonitorActivitiesIndexRoute: typeof MonitorActivitiesIndexRoute;
+  PlaygroundIndexRoute: typeof PlaygroundIndexRoute;
+  SearchDataRepositoriesIndexRoute: typeof SearchDataRepositoriesIndexRoute;
+  ExploreDataDetailIdRoute: typeof ExploreDataDetailIdRoute;
+  ExploreDataVisualizeIdRoute: typeof ExploreDataVisualizeIdRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -798,6 +909,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreDataIdRoute: ExploreDataIdRoute,
   MonitorActivitiesCalendarRoute: MonitorActivitiesCalendarRoute,
   MonitorActivitiesDetailRoute: MonitorActivitiesDetailRoute,
+  QualityBenchmarkRoute: QualityBenchmarkRouteWithChildren,
   RunComputationRoute: RunComputationRouteWithChildren,
   SearchDataRepositoriesIdRoute: SearchDataRepositoriesIdRoute,
   ExploreDataIndexRoute: ExploreDataIndexRoute,
@@ -806,11 +918,11 @@ const rootRouteChildren: RootRouteChildren = {
   SearchDataRepositoriesIndexRoute: SearchDataRepositoriesIndexRoute,
   ExploreDataDetailIdRoute: ExploreDataDetailIdRoute,
   ExploreDataVisualizeIdRoute: ExploreDataVisualizeIdRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -824,6 +936,7 @@ export const routeTree = rootRoute
         "/explore-data/$id",
         "/monitor-activities/calendar",
         "/monitor-activities/detail",
+        "/quality-benchmark",
         "/run-computation",
         "/search-data-repositories/$id",
         "/explore-data/",
@@ -877,6 +990,23 @@ export const routeTree = rootRoute
     "/monitor-activities/detail": {
       "filePath": "monitor-activities/detail.tsx"
     },
+    "/quality-benchmark": {
+      "filePath": "quality-benchmark",
+      "children": [
+        "/quality-benchmark/_layout",
+        "/quality-benchmark/compare",
+        "/quality-benchmark/",
+        "/quality-benchmark/report/$id"
+      ]
+    },
+    "/quality-benchmark/_layout": {
+      "filePath": "quality-benchmark/_layout.tsx",
+      "parent": "/quality-benchmark"
+    },
+    "/quality-benchmark/compare": {
+      "filePath": "quality-benchmark/compare.tsx",
+      "parent": "/quality-benchmark"
+    },
     "/run-computation": {
       "filePath": "run-computation",
       "children": [
@@ -902,6 +1032,10 @@ export const routeTree = rootRoute
     },
     "/playground/": {
       "filePath": "playground/index.tsx"
+    },
+    "/quality-benchmark/": {
+      "filePath": "quality-benchmark/index.tsx",
+      "parent": "/quality-benchmark"
     },
     "/search-data-repositories/": {
       "filePath": "search-data-repositories/index.tsx"
@@ -931,6 +1065,10 @@ export const routeTree = rootRoute
     },
     "/explore-data/visualize/$id": {
       "filePath": "explore-data/visualize/$id.tsx"
+    },
+    "/quality-benchmark/report/$id": {
+      "filePath": "quality-benchmark/report/$id.tsx",
+      "parent": "/quality-benchmark"
     },
     "/compare-data/_layout/": {
       "filePath": "compare-data/_layout/index.tsx",
