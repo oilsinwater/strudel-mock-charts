@@ -41,6 +41,18 @@ const ExploreDataContent: React.FC = () => {
     }
   };
 
+  const handleBenchmarkQuality = () => {
+    if (state.selectedIds.length > 0) {
+      navigate({
+        to: '/quality-benchmark',
+        search: {
+          ids: state.selectedIds.join(','),
+          origin: 'explore-data',
+        },
+      });
+    }
+  };
+
   return (
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Box data-testid="ed-header" sx={{ p: 3 }}>
@@ -130,6 +142,7 @@ const ExploreDataContent: React.FC = () => {
                 <PrimaryActions
                   onViewDetail={handleViewDetail}
                   onVisualize={handleVisualize}
+                  onBenchmarkQuality={handleBenchmarkQuality}
                   disabled={state.selectedIds.length === 0}
                 />
               </Box>
