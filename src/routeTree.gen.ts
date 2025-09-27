@@ -14,30 +14,16 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { Route as rootRoute } from './pages/__root';
 import { Route as IndexImport } from './pages/index';
-import { Route as SearchDataRepositoriesIndexImport } from './pages/search-data-repositories/index';
-import { Route as MonitorActivitiesIndexImport } from './pages/monitor-activities/index';
 import { Route as ExploreDataIndexImport } from './pages/explore-data/index';
-import { Route as SearchDataRepositoriesIdImport } from './pages/search-data-repositories/$id';
 import { Route as RunComputationLayoutImport } from './pages/run-computation/_layout';
 import { Route as QualityBenchmarkLayoutImport } from './pages/quality-benchmark/_layout';
-import { Route as MonitorActivitiesDetailImport } from './pages/monitor-activities/detail';
-import { Route as MonitorActivitiesCalendarImport } from './pages/monitor-activities/calendar';
 import { Route as ExploreDataIdImport } from './pages/explore-data/$id';
-import { Route as ContributeDataLayoutImport } from './pages/contribute-data/_layout';
-import { Route as CompareDataLayoutImport } from './pages/compare-data/_layout';
 import { Route as RunComputationLayoutIndexImport } from './pages/run-computation/_layout/index';
 import { Route as QualityBenchmarkLayoutIndexImport } from './pages/quality-benchmark/_layout/index';
-import { Route as ContributeDataLayoutIndexImport } from './pages/contribute-data/_layout/index';
-import { Route as CompareDataLayoutIndexImport } from './pages/compare-data/_layout/index';
 import { Route as RunComputationLayoutNewImport } from './pages/run-computation/_layout/new';
 import { Route as QualityBenchmarkLayoutCompareImport } from './pages/quality-benchmark/_layout/compare';
 import { Route as ExploreDataVisualizeIdImport } from './pages/explore-data/visualize/$id';
 import { Route as ExploreDataDetailIdImport } from './pages/explore-data/detail/$id';
-import { Route as ContributeDataLayoutReviewImport } from './pages/contribute-data/_layout/review';
-import { Route as ContributeDataLayoutPortalImport } from './pages/contribute-data/_layout/portal';
-import { Route as ContributeDataLayoutNewImport } from './pages/contribute-data/_layout/new';
-import { Route as CompareDataLayoutNewImport } from './pages/compare-data/_layout/new';
-import { Route as CompareDataLayoutCompareImport } from './pages/compare-data/_layout/compare';
 import { Route as RunComputationLayoutResultsRunIdImport } from './pages/run-computation/_layout/results/$runId';
 import { Route as QualityBenchmarkLayoutReportIdImport } from './pages/quality-benchmark/_layout/report/$id';
 
@@ -45,8 +31,6 @@ import { Route as QualityBenchmarkLayoutReportIdImport } from './pages/quality-b
 
 const RunComputationImport = createFileRoute('/run-computation')();
 const QualityBenchmarkImport = createFileRoute('/quality-benchmark')();
-const ContributeDataImport = createFileRoute('/contribute-data')();
-const CompareDataImport = createFileRoute('/compare-data')();
 
 // Create/Update Routes
 
@@ -62,46 +46,15 @@ const QualityBenchmarkRoute = QualityBenchmarkImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
-const ContributeDataRoute = ContributeDataImport.update({
-  id: '/contribute-data',
-  path: '/contribute-data',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const CompareDataRoute = CompareDataImport.update({
-  id: '/compare-data',
-  path: '/compare-data',
-  getParentRoute: () => rootRoute,
-} as any);
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any);
 
-const SearchDataRepositoriesIndexRoute =
-  SearchDataRepositoriesIndexImport.update({
-    id: '/search-data-repositories/',
-    path: '/search-data-repositories/',
-    getParentRoute: () => rootRoute,
-  } as any);
-
-const MonitorActivitiesIndexRoute = MonitorActivitiesIndexImport.update({
-  id: '/monitor-activities/',
-  path: '/monitor-activities/',
-  getParentRoute: () => rootRoute,
-} as any);
-
 const ExploreDataIndexRoute = ExploreDataIndexImport.update({
   id: '/explore-data/',
   path: '/explore-data/',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const SearchDataRepositoriesIdRoute = SearchDataRepositoriesIdImport.update({
-  id: '/search-data-repositories/$id',
-  path: '/search-data-repositories/$id',
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -115,32 +68,10 @@ const QualityBenchmarkLayoutRoute = QualityBenchmarkLayoutImport.update({
   getParentRoute: () => QualityBenchmarkRoute,
 } as any);
 
-const MonitorActivitiesDetailRoute = MonitorActivitiesDetailImport.update({
-  id: '/monitor-activities/detail',
-  path: '/monitor-activities/detail',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const MonitorActivitiesCalendarRoute = MonitorActivitiesCalendarImport.update({
-  id: '/monitor-activities/calendar',
-  path: '/monitor-activities/calendar',
-  getParentRoute: () => rootRoute,
-} as any);
-
 const ExploreDataIdRoute = ExploreDataIdImport.update({
   id: '/explore-data/$id',
   path: '/explore-data/$id',
   getParentRoute: () => rootRoute,
-} as any);
-
-const ContributeDataLayoutRoute = ContributeDataLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => ContributeDataRoute,
-} as any);
-
-const CompareDataLayoutRoute = CompareDataLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => CompareDataRoute,
 } as any);
 
 const RunComputationLayoutIndexRoute = RunComputationLayoutIndexImport.update({
@@ -155,18 +86,6 @@ const QualityBenchmarkLayoutIndexRoute =
     path: '/',
     getParentRoute: () => QualityBenchmarkLayoutRoute,
   } as any);
-
-const ContributeDataLayoutIndexRoute = ContributeDataLayoutIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ContributeDataLayoutRoute,
-} as any);
-
-const CompareDataLayoutIndexRoute = CompareDataLayoutIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CompareDataLayoutRoute,
-} as any);
 
 const RunComputationLayoutNewRoute = RunComputationLayoutNewImport.update({
   id: '/new',
@@ -191,40 +110,6 @@ const ExploreDataDetailIdRoute = ExploreDataDetailIdImport.update({
   id: '/explore-data/detail/$id',
   path: '/explore-data/detail/$id',
   getParentRoute: () => rootRoute,
-} as any);
-
-const ContributeDataLayoutReviewRoute = ContributeDataLayoutReviewImport.update(
-  {
-    id: '/review',
-    path: '/review',
-    getParentRoute: () => ContributeDataLayoutRoute,
-  } as any
-);
-
-const ContributeDataLayoutPortalRoute = ContributeDataLayoutPortalImport.update(
-  {
-    id: '/portal',
-    path: '/portal',
-    getParentRoute: () => ContributeDataLayoutRoute,
-  } as any
-);
-
-const ContributeDataLayoutNewRoute = ContributeDataLayoutNewImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => ContributeDataLayoutRoute,
-} as any);
-
-const CompareDataLayoutNewRoute = CompareDataLayoutNewImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => CompareDataLayoutRoute,
-} as any);
-
-const CompareDataLayoutCompareRoute = CompareDataLayoutCompareImport.update({
-  id: '/compare',
-  path: '/compare',
-  getParentRoute: () => CompareDataLayoutRoute,
 } as any);
 
 const RunComputationLayoutResultsRunIdRoute =
@@ -252,53 +137,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport;
       parentRoute: typeof rootRoute;
     };
-    '/compare-data': {
-      id: '/compare-data';
-      path: '/compare-data';
-      fullPath: '/compare-data';
-      preLoaderRoute: typeof CompareDataImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/compare-data/_layout': {
-      id: '/compare-data/_layout';
-      path: '/compare-data';
-      fullPath: '/compare-data';
-      preLoaderRoute: typeof CompareDataLayoutImport;
-      parentRoute: typeof CompareDataRoute;
-    };
-    '/contribute-data': {
-      id: '/contribute-data';
-      path: '/contribute-data';
-      fullPath: '/contribute-data';
-      preLoaderRoute: typeof ContributeDataImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/contribute-data/_layout': {
-      id: '/contribute-data/_layout';
-      path: '/contribute-data';
-      fullPath: '/contribute-data';
-      preLoaderRoute: typeof ContributeDataLayoutImport;
-      parentRoute: typeof ContributeDataRoute;
-    };
     '/explore-data/$id': {
       id: '/explore-data/$id';
       path: '/explore-data/$id';
       fullPath: '/explore-data/$id';
       preLoaderRoute: typeof ExploreDataIdImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/monitor-activities/calendar': {
-      id: '/monitor-activities/calendar';
-      path: '/monitor-activities/calendar';
-      fullPath: '/monitor-activities/calendar';
-      preLoaderRoute: typeof MonitorActivitiesCalendarImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/monitor-activities/detail': {
-      id: '/monitor-activities/detail';
-      path: '/monitor-activities/detail';
-      fullPath: '/monitor-activities/detail';
-      preLoaderRoute: typeof MonitorActivitiesDetailImport;
       parentRoute: typeof rootRoute;
     };
     '/quality-benchmark': {
@@ -329,68 +172,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RunComputationLayoutImport;
       parentRoute: typeof RunComputationRoute;
     };
-    '/search-data-repositories/$id': {
-      id: '/search-data-repositories/$id';
-      path: '/search-data-repositories/$id';
-      fullPath: '/search-data-repositories/$id';
-      preLoaderRoute: typeof SearchDataRepositoriesIdImport;
-      parentRoute: typeof rootRoute;
-    };
     '/explore-data/': {
       id: '/explore-data/';
       path: '/explore-data';
       fullPath: '/explore-data';
       preLoaderRoute: typeof ExploreDataIndexImport;
       parentRoute: typeof rootRoute;
-    };
-    '/monitor-activities/': {
-      id: '/monitor-activities/';
-      path: '/monitor-activities';
-      fullPath: '/monitor-activities';
-      preLoaderRoute: typeof MonitorActivitiesIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/search-data-repositories/': {
-      id: '/search-data-repositories/';
-      path: '/search-data-repositories';
-      fullPath: '/search-data-repositories';
-      preLoaderRoute: typeof SearchDataRepositoriesIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/compare-data/_layout/compare': {
-      id: '/compare-data/_layout/compare';
-      path: '/compare';
-      fullPath: '/compare-data/compare';
-      preLoaderRoute: typeof CompareDataLayoutCompareImport;
-      parentRoute: typeof CompareDataLayoutImport;
-    };
-    '/compare-data/_layout/new': {
-      id: '/compare-data/_layout/new';
-      path: '/new';
-      fullPath: '/compare-data/new';
-      preLoaderRoute: typeof CompareDataLayoutNewImport;
-      parentRoute: typeof CompareDataLayoutImport;
-    };
-    '/contribute-data/_layout/new': {
-      id: '/contribute-data/_layout/new';
-      path: '/new';
-      fullPath: '/contribute-data/new';
-      preLoaderRoute: typeof ContributeDataLayoutNewImport;
-      parentRoute: typeof ContributeDataLayoutImport;
-    };
-    '/contribute-data/_layout/portal': {
-      id: '/contribute-data/_layout/portal';
-      path: '/portal';
-      fullPath: '/contribute-data/portal';
-      preLoaderRoute: typeof ContributeDataLayoutPortalImport;
-      parentRoute: typeof ContributeDataLayoutImport;
-    };
-    '/contribute-data/_layout/review': {
-      id: '/contribute-data/_layout/review';
-      path: '/review';
-      fullPath: '/contribute-data/review';
-      preLoaderRoute: typeof ContributeDataLayoutReviewImport;
-      parentRoute: typeof ContributeDataLayoutImport;
     };
     '/explore-data/detail/$id': {
       id: '/explore-data/detail/$id';
@@ -419,20 +206,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/run-computation/new';
       preLoaderRoute: typeof RunComputationLayoutNewImport;
       parentRoute: typeof RunComputationLayoutImport;
-    };
-    '/compare-data/_layout/': {
-      id: '/compare-data/_layout/';
-      path: '/';
-      fullPath: '/compare-data/';
-      preLoaderRoute: typeof CompareDataLayoutIndexImport;
-      parentRoute: typeof CompareDataLayoutImport;
-    };
-    '/contribute-data/_layout/': {
-      id: '/contribute-data/_layout/';
-      path: '/';
-      fullPath: '/contribute-data/';
-      preLoaderRoute: typeof ContributeDataLayoutIndexImport;
-      parentRoute: typeof ContributeDataLayoutImport;
     };
     '/quality-benchmark/_layout/': {
       id: '/quality-benchmark/_layout/';
@@ -466,62 +239,6 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
-
-interface CompareDataLayoutRouteChildren {
-  CompareDataLayoutCompareRoute: typeof CompareDataLayoutCompareRoute;
-  CompareDataLayoutNewRoute: typeof CompareDataLayoutNewRoute;
-  CompareDataLayoutIndexRoute: typeof CompareDataLayoutIndexRoute;
-}
-
-const CompareDataLayoutRouteChildren: CompareDataLayoutRouteChildren = {
-  CompareDataLayoutCompareRoute: CompareDataLayoutCompareRoute,
-  CompareDataLayoutNewRoute: CompareDataLayoutNewRoute,
-  CompareDataLayoutIndexRoute: CompareDataLayoutIndexRoute,
-};
-
-const CompareDataLayoutRouteWithChildren =
-  CompareDataLayoutRoute._addFileChildren(CompareDataLayoutRouteChildren);
-
-interface CompareDataRouteChildren {
-  CompareDataLayoutRoute: typeof CompareDataLayoutRouteWithChildren;
-}
-
-const CompareDataRouteChildren: CompareDataRouteChildren = {
-  CompareDataLayoutRoute: CompareDataLayoutRouteWithChildren,
-};
-
-const CompareDataRouteWithChildren = CompareDataRoute._addFileChildren(
-  CompareDataRouteChildren
-);
-
-interface ContributeDataLayoutRouteChildren {
-  ContributeDataLayoutNewRoute: typeof ContributeDataLayoutNewRoute;
-  ContributeDataLayoutPortalRoute: typeof ContributeDataLayoutPortalRoute;
-  ContributeDataLayoutReviewRoute: typeof ContributeDataLayoutReviewRoute;
-  ContributeDataLayoutIndexRoute: typeof ContributeDataLayoutIndexRoute;
-}
-
-const ContributeDataLayoutRouteChildren: ContributeDataLayoutRouteChildren = {
-  ContributeDataLayoutNewRoute: ContributeDataLayoutNewRoute,
-  ContributeDataLayoutPortalRoute: ContributeDataLayoutPortalRoute,
-  ContributeDataLayoutReviewRoute: ContributeDataLayoutReviewRoute,
-  ContributeDataLayoutIndexRoute: ContributeDataLayoutIndexRoute,
-};
-
-const ContributeDataLayoutRouteWithChildren =
-  ContributeDataLayoutRoute._addFileChildren(ContributeDataLayoutRouteChildren);
-
-interface ContributeDataRouteChildren {
-  ContributeDataLayoutRoute: typeof ContributeDataLayoutRouteWithChildren;
-}
-
-const ContributeDataRouteChildren: ContributeDataRouteChildren = {
-  ContributeDataLayoutRoute: ContributeDataLayoutRouteWithChildren,
-};
-
-const ContributeDataRouteWithChildren = ContributeDataRoute._addFileChildren(
-  ContributeDataRouteChildren
-);
 
 interface QualityBenchmarkLayoutRouteChildren {
   QualityBenchmarkLayoutCompareRoute: typeof QualityBenchmarkLayoutCompareRoute;
@@ -581,28 +298,14 @@ const RunComputationRouteWithChildren = RunComputationRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
-  '/compare-data': typeof CompareDataLayoutRouteWithChildren;
-  '/contribute-data': typeof ContributeDataLayoutRouteWithChildren;
   '/explore-data/$id': typeof ExploreDataIdRoute;
-  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute;
-  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute;
   '/quality-benchmark': typeof QualityBenchmarkLayoutRouteWithChildren;
   '/run-computation': typeof RunComputationLayoutRouteWithChildren;
-  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute;
   '/explore-data': typeof ExploreDataIndexRoute;
-  '/monitor-activities': typeof MonitorActivitiesIndexRoute;
-  '/search-data-repositories': typeof SearchDataRepositoriesIndexRoute;
-  '/compare-data/compare': typeof CompareDataLayoutCompareRoute;
-  '/compare-data/new': typeof CompareDataLayoutNewRoute;
-  '/contribute-data/new': typeof ContributeDataLayoutNewRoute;
-  '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute;
-  '/contribute-data/review': typeof ContributeDataLayoutReviewRoute;
   '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
   '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
   '/quality-benchmark/compare': typeof QualityBenchmarkLayoutCompareRoute;
   '/run-computation/new': typeof RunComputationLayoutNewRoute;
-  '/compare-data/': typeof CompareDataLayoutIndexRoute;
-  '/contribute-data/': typeof ContributeDataLayoutIndexRoute;
   '/quality-benchmark/': typeof QualityBenchmarkLayoutIndexRoute;
   '/run-computation/': typeof RunComputationLayoutIndexRoute;
   '/quality-benchmark/report/$id': typeof QualityBenchmarkLayoutReportIdRoute;
@@ -611,22 +314,10 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
-  '/compare-data': typeof CompareDataLayoutIndexRoute;
-  '/contribute-data': typeof ContributeDataLayoutIndexRoute;
   '/explore-data/$id': typeof ExploreDataIdRoute;
-  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute;
-  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute;
   '/quality-benchmark': typeof QualityBenchmarkLayoutIndexRoute;
   '/run-computation': typeof RunComputationLayoutIndexRoute;
-  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute;
   '/explore-data': typeof ExploreDataIndexRoute;
-  '/monitor-activities': typeof MonitorActivitiesIndexRoute;
-  '/search-data-repositories': typeof SearchDataRepositoriesIndexRoute;
-  '/compare-data/compare': typeof CompareDataLayoutCompareRoute;
-  '/compare-data/new': typeof CompareDataLayoutNewRoute;
-  '/contribute-data/new': typeof ContributeDataLayoutNewRoute;
-  '/contribute-data/portal': typeof ContributeDataLayoutPortalRoute;
-  '/contribute-data/review': typeof ContributeDataLayoutReviewRoute;
   '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
   '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
   '/quality-benchmark/compare': typeof QualityBenchmarkLayoutCompareRoute;
@@ -638,32 +329,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexRoute;
-  '/compare-data': typeof CompareDataRouteWithChildren;
-  '/compare-data/_layout': typeof CompareDataLayoutRouteWithChildren;
-  '/contribute-data': typeof ContributeDataRouteWithChildren;
-  '/contribute-data/_layout': typeof ContributeDataLayoutRouteWithChildren;
   '/explore-data/$id': typeof ExploreDataIdRoute;
-  '/monitor-activities/calendar': typeof MonitorActivitiesCalendarRoute;
-  '/monitor-activities/detail': typeof MonitorActivitiesDetailRoute;
   '/quality-benchmark': typeof QualityBenchmarkRouteWithChildren;
   '/quality-benchmark/_layout': typeof QualityBenchmarkLayoutRouteWithChildren;
   '/run-computation': typeof RunComputationRouteWithChildren;
   '/run-computation/_layout': typeof RunComputationLayoutRouteWithChildren;
-  '/search-data-repositories/$id': typeof SearchDataRepositoriesIdRoute;
   '/explore-data/': typeof ExploreDataIndexRoute;
-  '/monitor-activities/': typeof MonitorActivitiesIndexRoute;
-  '/search-data-repositories/': typeof SearchDataRepositoriesIndexRoute;
-  '/compare-data/_layout/compare': typeof CompareDataLayoutCompareRoute;
-  '/compare-data/_layout/new': typeof CompareDataLayoutNewRoute;
-  '/contribute-data/_layout/new': typeof ContributeDataLayoutNewRoute;
-  '/contribute-data/_layout/portal': typeof ContributeDataLayoutPortalRoute;
-  '/contribute-data/_layout/review': typeof ContributeDataLayoutReviewRoute;
   '/explore-data/detail/$id': typeof ExploreDataDetailIdRoute;
   '/explore-data/visualize/$id': typeof ExploreDataVisualizeIdRoute;
   '/quality-benchmark/_layout/compare': typeof QualityBenchmarkLayoutCompareRoute;
   '/run-computation/_layout/new': typeof RunComputationLayoutNewRoute;
-  '/compare-data/_layout/': typeof CompareDataLayoutIndexRoute;
-  '/contribute-data/_layout/': typeof ContributeDataLayoutIndexRoute;
   '/quality-benchmark/_layout/': typeof QualityBenchmarkLayoutIndexRoute;
   '/run-computation/_layout/': typeof RunComputationLayoutIndexRoute;
   '/quality-benchmark/_layout/report/$id': typeof QualityBenchmarkLayoutReportIdRoute;
@@ -674,28 +349,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
-    | '/compare-data'
-    | '/contribute-data'
     | '/explore-data/$id'
-    | '/monitor-activities/calendar'
-    | '/monitor-activities/detail'
     | '/quality-benchmark'
     | '/run-computation'
-    | '/search-data-repositories/$id'
     | '/explore-data'
-    | '/monitor-activities'
-    | '/search-data-repositories'
-    | '/compare-data/compare'
-    | '/compare-data/new'
-    | '/contribute-data/new'
-    | '/contribute-data/portal'
-    | '/contribute-data/review'
     | '/explore-data/detail/$id'
     | '/explore-data/visualize/$id'
     | '/quality-benchmark/compare'
     | '/run-computation/new'
-    | '/compare-data/'
-    | '/contribute-data/'
     | '/quality-benchmark/'
     | '/run-computation/'
     | '/quality-benchmark/report/$id'
@@ -703,22 +364,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
-    | '/compare-data'
-    | '/contribute-data'
     | '/explore-data/$id'
-    | '/monitor-activities/calendar'
-    | '/monitor-activities/detail'
     | '/quality-benchmark'
     | '/run-computation'
-    | '/search-data-repositories/$id'
     | '/explore-data'
-    | '/monitor-activities'
-    | '/search-data-repositories'
-    | '/compare-data/compare'
-    | '/compare-data/new'
-    | '/contribute-data/new'
-    | '/contribute-data/portal'
-    | '/contribute-data/review'
     | '/explore-data/detail/$id'
     | '/explore-data/visualize/$id'
     | '/quality-benchmark/compare'
@@ -728,32 +377,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/compare-data'
-    | '/compare-data/_layout'
-    | '/contribute-data'
-    | '/contribute-data/_layout'
     | '/explore-data/$id'
-    | '/monitor-activities/calendar'
-    | '/monitor-activities/detail'
     | '/quality-benchmark'
     | '/quality-benchmark/_layout'
     | '/run-computation'
     | '/run-computation/_layout'
-    | '/search-data-repositories/$id'
     | '/explore-data/'
-    | '/monitor-activities/'
-    | '/search-data-repositories/'
-    | '/compare-data/_layout/compare'
-    | '/compare-data/_layout/new'
-    | '/contribute-data/_layout/new'
-    | '/contribute-data/_layout/portal'
-    | '/contribute-data/_layout/review'
     | '/explore-data/detail/$id'
     | '/explore-data/visualize/$id'
     | '/quality-benchmark/_layout/compare'
     | '/run-computation/_layout/new'
-    | '/compare-data/_layout/'
-    | '/contribute-data/_layout/'
     | '/quality-benchmark/_layout/'
     | '/run-computation/_layout/'
     | '/quality-benchmark/_layout/report/$id'
@@ -763,34 +396,20 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
-  CompareDataRoute: typeof CompareDataRouteWithChildren;
-  ContributeDataRoute: typeof ContributeDataRouteWithChildren;
   ExploreDataIdRoute: typeof ExploreDataIdRoute;
-  MonitorActivitiesCalendarRoute: typeof MonitorActivitiesCalendarRoute;
-  MonitorActivitiesDetailRoute: typeof MonitorActivitiesDetailRoute;
   QualityBenchmarkRoute: typeof QualityBenchmarkRouteWithChildren;
   RunComputationRoute: typeof RunComputationRouteWithChildren;
-  SearchDataRepositoriesIdRoute: typeof SearchDataRepositoriesIdRoute;
   ExploreDataIndexRoute: typeof ExploreDataIndexRoute;
-  MonitorActivitiesIndexRoute: typeof MonitorActivitiesIndexRoute;
-  SearchDataRepositoriesIndexRoute: typeof SearchDataRepositoriesIndexRoute;
   ExploreDataDetailIdRoute: typeof ExploreDataDetailIdRoute;
   ExploreDataVisualizeIdRoute: typeof ExploreDataVisualizeIdRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CompareDataRoute: CompareDataRouteWithChildren,
-  ContributeDataRoute: ContributeDataRouteWithChildren,
   ExploreDataIdRoute: ExploreDataIdRoute,
-  MonitorActivitiesCalendarRoute: MonitorActivitiesCalendarRoute,
-  MonitorActivitiesDetailRoute: MonitorActivitiesDetailRoute,
   QualityBenchmarkRoute: QualityBenchmarkRouteWithChildren,
   RunComputationRoute: RunComputationRouteWithChildren,
-  SearchDataRepositoriesIdRoute: SearchDataRepositoriesIdRoute,
   ExploreDataIndexRoute: ExploreDataIndexRoute,
-  MonitorActivitiesIndexRoute: MonitorActivitiesIndexRoute,
-  SearchDataRepositoriesIndexRoute: SearchDataRepositoriesIndexRoute,
   ExploreDataDetailIdRoute: ExploreDataDetailIdRoute,
   ExploreDataVisualizeIdRoute: ExploreDataVisualizeIdRoute,
 };
@@ -806,17 +425,10 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/compare-data",
-        "/contribute-data",
         "/explore-data/$id",
-        "/monitor-activities/calendar",
-        "/monitor-activities/detail",
         "/quality-benchmark",
         "/run-computation",
-        "/search-data-repositories/$id",
         "/explore-data/",
-        "/monitor-activities/",
-        "/search-data-repositories/",
         "/explore-data/detail/$id",
         "/explore-data/visualize/$id"
       ]
@@ -824,45 +436,8 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/compare-data": {
-      "filePath": "compare-data",
-      "children": [
-        "/compare-data/_layout"
-      ]
-    },
-    "/compare-data/_layout": {
-      "filePath": "compare-data/_layout.tsx",
-      "parent": "/compare-data",
-      "children": [
-        "/compare-data/_layout/compare",
-        "/compare-data/_layout/new",
-        "/compare-data/_layout/"
-      ]
-    },
-    "/contribute-data": {
-      "filePath": "contribute-data",
-      "children": [
-        "/contribute-data/_layout"
-      ]
-    },
-    "/contribute-data/_layout": {
-      "filePath": "contribute-data/_layout.tsx",
-      "parent": "/contribute-data",
-      "children": [
-        "/contribute-data/_layout/new",
-        "/contribute-data/_layout/portal",
-        "/contribute-data/_layout/review",
-        "/contribute-data/_layout/"
-      ]
-    },
     "/explore-data/$id": {
       "filePath": "explore-data/$id.tsx"
-    },
-    "/monitor-activities/calendar": {
-      "filePath": "monitor-activities/calendar.tsx"
-    },
-    "/monitor-activities/detail": {
-      "filePath": "monitor-activities/detail.tsx"
     },
     "/quality-benchmark": {
       "filePath": "quality-benchmark",
@@ -894,37 +469,8 @@ export const routeTree = rootRoute
         "/run-computation/_layout/results/$runId"
       ]
     },
-    "/search-data-repositories/$id": {
-      "filePath": "search-data-repositories/$id.tsx"
-    },
     "/explore-data/": {
       "filePath": "explore-data/index.tsx"
-    },
-    "/monitor-activities/": {
-      "filePath": "monitor-activities/index.tsx"
-    },
-    "/search-data-repositories/": {
-      "filePath": "search-data-repositories/index.tsx"
-    },
-    "/compare-data/_layout/compare": {
-      "filePath": "compare-data/_layout/compare.tsx",
-      "parent": "/compare-data/_layout"
-    },
-    "/compare-data/_layout/new": {
-      "filePath": "compare-data/_layout/new.tsx",
-      "parent": "/compare-data/_layout"
-    },
-    "/contribute-data/_layout/new": {
-      "filePath": "contribute-data/_layout/new.tsx",
-      "parent": "/contribute-data/_layout"
-    },
-    "/contribute-data/_layout/portal": {
-      "filePath": "contribute-data/_layout/portal.tsx",
-      "parent": "/contribute-data/_layout"
-    },
-    "/contribute-data/_layout/review": {
-      "filePath": "contribute-data/_layout/review.tsx",
-      "parent": "/contribute-data/_layout"
     },
     "/explore-data/detail/$id": {
       "filePath": "explore-data/detail/$id.tsx"
@@ -939,14 +485,6 @@ export const routeTree = rootRoute
     "/run-computation/_layout/new": {
       "filePath": "run-computation/_layout/new.tsx",
       "parent": "/run-computation/_layout"
-    },
-    "/compare-data/_layout/": {
-      "filePath": "compare-data/_layout/index.tsx",
-      "parent": "/compare-data/_layout"
-    },
-    "/contribute-data/_layout/": {
-      "filePath": "contribute-data/_layout/index.tsx",
-      "parent": "/contribute-data/_layout"
     },
     "/quality-benchmark/_layout/": {
       "filePath": "quality-benchmark/_layout/index.tsx",

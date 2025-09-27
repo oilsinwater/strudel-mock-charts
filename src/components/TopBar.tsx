@@ -1,5 +1,13 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { AppBar, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+} from '@mui/material';
 import React from 'react';
 import { cleanPath } from '../utils/queryParams.utils';
 import { AppLink } from './AppLink';
@@ -40,13 +48,30 @@ export const TopBar: React.FC = () => {
           </AppLink>
           <AppLink to="/">
             <Typography variant="h6" component="div" fontWeight="bold">
-              My Project
+              SciData Hub
             </Typography>
           </AppLink>
         </Stack>
-        <IconButton size="large" edge="start" color="inherit">
-          <AccountCircleIcon />
-        </IconButton>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <AppLink to="/explore-data">
+            <Button color="inherit" sx={{ textTransform: 'none' }}>
+              Explore Data
+            </Button>
+          </AppLink>
+          <AppLink to="/quality-benchmark">
+            <Button color="inherit" sx={{ textTransform: 'none' }}>
+              Quality Benchmark
+            </Button>
+          </AppLink>
+          <AppLink to="/run-computation">
+            <Button color="inherit" sx={{ textTransform: 'none' }}>
+              Run Computation
+            </Button>
+          </AppLink>
+          <IconButton size="large" edge="start" color="inherit">
+            <AccountCircleIcon />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
