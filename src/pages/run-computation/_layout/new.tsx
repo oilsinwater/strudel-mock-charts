@@ -32,7 +32,7 @@ function NewComputationRun() {
     dispatch(setLoading(true));
     // In a real app, this would be an API call.
     const newRun = {
-      runId: `run-${Math.random().toString(36).substr(2, 9)}`,
+      runId: `run-${Math.random().toString(36).substring(2, 11)}`,
       datasetId: state.selectedDatasetId,
       modelId: state.selectedModelId,
       status: 'completed' as const,
