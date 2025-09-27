@@ -1,0 +1,51 @@
+ASCII WIREFLOW:
+
+[INDEX] --click 'New Run'--> [NEW]
+[INDEX] --click row--> [RESULTS] {runId}
+[NEW]   --startComputation()--> [RESULTS] {newRunId}
+[RESULTS] --click 'Explore Output'--> (external) /explore-data/detail/{output_dataset_id}
+
+
+ASCII SCREENS:
+
+INDEX SCREEN
++--------------------------------------------------+
+| Header: Run Process Simulation (rc-header)       |
++--------------------------------------------------+
+|                                                  |
+| Run History Table (rc-history-table)             |
+| [runId | datasetId | modelId | status | date]    |
+|                                                  |
++--------------------------------------------------+
+| Actions: [New Run Button (rc-new-run-button)]    |
++--------------------------------------------------+
+
+NEW SCREEN
++--------------------------------------------------+
+| Header: New Computation Run (rc-header)          |
++---------------------+----------------------------+
+| Dataset Selector    | Parameter Form (rc-params) |
+| (rc-dataset-select) |                            |
+|                     | [Param 1: ____]            |
+| Model Selector      | [Param 2: ____]            |
+| (rc-model-select)   |                            |
+|                     |                            |
++---------------------+----------------------------+
+| Actions: [Run Computation (rc-run-button)]       |
++--------------------------------------------------+
+
+RESULTS SCREEN
++--------------------------------------------------+
+| Header: Results for {runId} (rc-header)          |
++--------------------------------------------------+
+|                                                  |
+| Results Summary (rc-results-summary)             |
+| [Status | Output Dataset | etc.]                |
+|                                                  |
+| Output Chart (rc-output-chart)                   |
+|                                                  |
+| Output Data Table (rc-output-table)              |
+|                                                  |
++--------------------------------------------------+
+| Actions: [Explore Output (rc-explore-output)]    |
++--------------------------------------------------+

@@ -1,0 +1,219 @@
+design_spec:
+  metadata:
+    title: "Run Process Simulation"
+    task_flow_type: "run-computation"
+    domain: "Process Systems Engineering"
+    description: "Select a process dataset, choose a simulation model, configure its parameters, and execute a computation. Monitor the run and analyze the resulting output data."
+    schema_version: "1.0.0"
+  routes:
+    - name: "index"
+      path: "/run-computation"
+      layout: "root"
+      children:
+        - name: "new"
+          path: "new"
+        - name: "results"
+          path: "results/:runId"
+  screens:
+    - id: "index"
+      purpose: "Displays a list of past computation runs and allows starting a new one."
+      primary_components: ["PageHeader", "RunHistoryTable", "PrimaryActions"]
+      data_bindings:
+        source: "runs.main"
+        id_field: "runId"
+      inputs: []
+      outputs: ["selectedRunId"]
+      regions:
+        header: ["title", "description"]
+        main: ["RunHistoryTable"]
+        footer: ["PrimaryActions"]
+    - id: "new"
+      purpose: "Configure and start a new computation run."
+      primary_components: ["PageHeader", "DatasetSelector", "ModelSelector", "ParameterForm", "PrimaryActions"]
+      data_bindings:
+        source: "datasets.main"
+        id_field: "id"
+      inputs: ["selectedDatasetId", "selectedModelId", "runParameters"]
+      outputs: ["newRunId"]
+      regions:
+        header: ["title", "description"]
+        left: ["DatasetSelector", "ModelSelector"]
+        main: ["ParameterForm"]
+        footer: ["PrimaryActions"]
+    - id: "results"
+      purpose: "Displays the results of a completed computation run, including output data and visualizations."
+      primary_components: ["PageHeader", "ResultsSummary", "OutputDataTable", "OutputChart", "PrimaryActions"]
+      data_bindings:
+        source: "runs.results"
+        id_field: "runId"
+      inputs: ["runId"]
+      outputs: []
+      regions:
+        header: ["title", "description"]
+        main: ["ResultsSummary", "OutputDataTable", "OutputChart"]
+        footer: ["PrimaryActions"]
+  state:
+    types:
+      Run: "{ runId: string; datasetId: string; modelId: string; status: 'pending' | 'running' | 'completed' | 'failed'; createdAt: string; completedAt: string | null; parameters: Record<string, any>; resultsPath: string | null }"
+      Model: "{ modelId: string; name: string; description: string; parameters: { id: string; label: string; type: 'number' | 'string'; defaultValue: any }[] }"
+      Parameter: "{ id: string; value: any }"
+    initial:
+      runs: []
+      models: []
+      selectedDatasetId: null
+      selectedModelId: null
+      runParameters: {}
+      loading: false
+      error: null
+  actions:
+    - name: "loadInitialData"
+      kind: "fetch"
+      payload: "{}"
+      state_mutations:
+        - "loading = true"
+      side_effects:
+        - "api.fetch('/data/computation-runs.csv').then(runs => dispatch({ type: 'SET_RUNS', payload: runs }))"
+        - "api.fetch('/data/computation-models.json').then(models => dispatch({ type: 'SET_MODELS', payload: models }))"
+    - name: "startComputation"
+      kind: "compute"
+      payload: "{ datasetId: string; modelId: string; parameters: Record<string, any> }"
+      preconditions: ["datasetId != null", "modelId != null"]
+      state_mutations:
+        - "loading = true"
+      side_effects:
+        - "api.post('/api/run-computation', payload).then(run => { dispatch({ type: 'ADD_RUN', payload: run }); route.push('/run-computation/results/'+run.runId) })"
+      triggers:
+        component: "PrimaryActions"
+        on: "click"
+        testid: "rc-run-button"
+    - name: "navigateToResults"
+      kind: "navigate"
+      payload: "{ runId: string }"
+      preconditions: ["runId in runs"]
+      side_effects:
+        - "route.push('/run-computation/results/'+runId)"
+      triggers:
+        component: "RunHistoryTable"
+        on: "rowClick"
+        testid: "rc-history-row"
+  userflow:
+    - from: "index"
+      to: "new"
+      action: "click 'New Run' button"
+    - from: "index"
+      to: "results"
+      action: "navigateToResults(runId)"
+      guard: "runId exists"
+    - from: "new"
+      to: "results"
+      action: "startComputation(...)"
+      guard: "dataset and model selected"
+    - from: "results"
+      to: "explore-data"
+      action: "click 'Explore Output Dataset'"
+      guard: "run status is 'completed'"
+  data_models:
+    - name: "ComputationRun"
+      fields:
+        - name: "runId"
+          type: "string"
+          description: "Unique identifier for the run"
+        - name: "datasetId"
+          type: "string"
+          description: "ID of the input dataset from explore-data"
+        - name: "modelId"
+          type: "string"
+          description: "ID of the computation model used"
+        - name: "status"
+          type: "string"
+          description: "Execution status"
+        - name: "createdAt"
+          type: "datetime"
+          description: "Timestamp when the run was created"
+        - name: "resultsPath"
+          type: "string"
+          description: "Path to the output data file (e.g., a CSV)"
+    - name: "ComputationModel"
+      fields:
+        - name: "modelId"
+          type: "string"
+        - name: "name"
+          type: "string"
+        - name: "parameters"
+          type: "array"
+          items: { type: "object", properties: { id: "string", label: "string", type: "string" } }
+  mock_data:
+    - type: "csv"
+      path: "public/data/computation-runs.csv"
+      seed: 42
+      rows: 10
+      schema: "ComputationRun"
+      content:
+        - runId: "run-001"
+          datasetId: "exp-2024-03-A"
+          modelId: "model-reactor-yield"
+          status: "completed"
+          createdAt: "2025-09-26T10:00:00Z"
+          resultsPath: "/data/run-001-results.csv"
+    - type: "json"
+      path: "public/data/computation-models.json"
+      content:
+        - modelId: "model-reactor-yield"
+          name: "Reactor Yield Optimizer"
+          description: "Simulates reactor yield based on temperature and pressure."
+          parameters:
+            - { id: "temperature", label: "Temperature (C)", type: "number", defaultValue: 350 }
+            - { id: "pressure", label: "Pressure (bar)", type: "number", defaultValue: 150 }
+        - modelId: "model-separation-purity"
+          name: "Separation Purity Model"
+          description: "Calculates product purity from a distillation column."
+          parameters:
+            - { id: "refluxRatio", label: "Reflux Ratio", type: "number", defaultValue: 1.5 }
+            - { id: "stages", label: "Number of Stages", type: "number", defaultValue: 20 }
+  config_hints:
+    - file: "taskflow.config.ts"
+      key: "title"
+      value: "Run Process Simulation"
+    - file: "taskflow.config.ts"
+      key: "dataSource.runs"
+      value: "/data/computation-runs.csv"
+    - file: "taskflow.config.ts"
+      key: "dataSource.models"
+      value: "/data/computation-models.json"
+    - file: "taskflow.config.ts"
+      key: "dataSource.inputDatasets"
+      value: "/data/explore-data-main.csv" # From another taskflow
+  test_ids:
+    - component: "RunHistoryTable"
+      testid: "rc-history-table"
+    - component: "PrimaryActions"
+      testid: "rc-new-run-button"
+    - component: "DatasetSelector"
+      testid: "rc-dataset-selector"
+    - component: "ModelSelector"
+      testid: "rc-model-selector"
+    - component: "ParameterForm"
+      testid: "rc-parameter-form"
+    - component: "PrimaryActions"
+      testid: "rc-run-button"
+    - component: "ResultsSummary"
+      testid: "rc-results-summary"
+    - component: "PrimaryActions"
+      testid: "rc-explore-output-button"
+  test_plan:
+    - suite: "e2e"
+      file: "run-computation.cy.ts"
+      tests:
+        - "should load the index page and display a history of runs"
+        - "should navigate to the 'new' page"
+        - "should allow selecting a dataset and model"
+        - "should allow configuring parameters and starting a run"
+        - "should redirect to the results page after starting a run"
+        - "should display run results, including a chart and data table"
+        - "should allow navigating to explore-data with the output dataset"
+    - suite: "unit"
+      file: "actions.test.ts"
+      tests:
+        - "reducer should handle SET_RUNS and SET_MODELS"
+        - "reducer should handle ADD_RUN correctly"
+        - "reducer should update run parameters"
