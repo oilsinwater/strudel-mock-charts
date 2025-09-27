@@ -1,0 +1,20 @@
+[
+  {
+    "modelId": "model-reactor-yield",
+    "name": "Reactor Yield Optimizer",
+    "description": "Simulates reactor yield based on temperature and pressure.",
+    "parameters": [
+      { "id": "temperature", "label": "Temperature (C)", "type": "number", "defaultValue": 350 },
+      { "id": "pressure", "label": "Pressure (bar)", "type": "number", "defaultValue": 150 }
+    ]
+  },
+  {
+    "modelId": "model-separation-purity",
+    "name": "Separation Purity Model",
+    "description": "Calculates product purity from a distillation column.",
+    "parameters": [
+      { "id": "refluxRatio", "label": "Reflux Ratio", "type": "number", "defaultValue": 1.5 },
+      { "id": "stages", "label": "Number of Stages", "type": "number", "defaultValue": 20 }
+    ]
+  }
+]

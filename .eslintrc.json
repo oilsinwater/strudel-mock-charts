@@ -40,5 +40,13 @@
     "node": true,
     "browser": true,
     "amd": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/pages/run-computation/**"],
+      "rules": {
+        "import/extensions": "off"
+      }
+    }
+  ]
 }
