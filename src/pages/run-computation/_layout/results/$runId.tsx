@@ -5,11 +5,11 @@ import {
   useNavigate,
   useParams,
 } from '@tanstack/react-router';
-import { PageHeader } from '../../../components/PageHeader';
-import { useRunComputationContext } from '../-context/ContextProvider';
-import { ResultsSummary } from '../-components/ResultsSummary';
-import { OutputDataTable } from '../-components/OutputDataTable';
-import { OutputChart } from '../-components/OutputChart';
+import { PageHeader } from '../../../../components/PageHeader';
+import { useRunComputationContext } from '../../-context/ContextProvider';
+import { ResultsSummary } from '../../-components/ResultsSummary';
+import { OutputDataTable } from '../../-components/OutputDataTable';
+import { OutputChart } from '../../-components/OutputChart';
 
 export const Route = createFileRoute('/run-computation/_layout/results/$runId')(
   {

@@ -39,10 +39,23 @@ export const RunComputationProvider: React.FC<{
       dispatch(setLoading(true));
       try {
         const [runsData, modelsData] = await Promise.all([
-          csv(runComputationConfig.dataSource.runs) as Promise<Run[]>,
+          csv(runComputationConfig.dataSource.runs),
           json(runComputationConfig.dataSource.models) as Promise<Model[]>,
         ]);
-        dispatch(setRuns(runsData));
+
+        // Transform CSV data to Run objects
+        const transformedRuns: Run[] = runsData.map((row: any) => ({
+          runId: row.runId || '',
+          datasetId: row.datasetId || '',
+          modelId: row.modelId || '',
+          status: row.status || 'pending',
+          createdAt: row.createdAt || '',
+          completedAt: row.completedAt || null,
+          parameters: {}, // Default empty parameters for CSV data
+          resultsPath: row.resultsPath || null,
+        }));
+
+        dispatch(setRuns(transformedRuns));
         dispatch(setModels(modelsData));
       } catch (e) {
         dispatch(setError('Failed to load initial data.'));

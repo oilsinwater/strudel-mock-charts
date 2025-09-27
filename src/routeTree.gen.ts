@@ -39,12 +39,7 @@ import { Route as ContributeDataLayoutNewImport } from './pages/contribute-data/
 import { Route as CompareDataLayoutNewImport } from './pages/compare-data/_layout/new';
 import { Route as CompareDataLayoutCompareImport } from './pages/compare-data/_layout/compare';
 import { Route as RunComputationLayoutResultsRunIdImport } from './pages/run-computation/_layout/results/$runId';
-import { Route as RunComputationLayoutIdLayoutImport } from './pages/run-computation/_layout/$id/_layout';
 import { Route as QualityBenchmarkLayoutReportIdImport } from './pages/quality-benchmark/_layout/report/$id';
-import { Route as RunComputationLayoutIdLayoutSettingsImport } from './pages/run-computation/_layout/$id/_layout/settings';
-import { Route as RunComputationLayoutIdLayoutRunningImport } from './pages/run-computation/_layout/$id/_layout/running';
-import { Route as RunComputationLayoutIdLayoutResultsImport } from './pages/run-computation/_layout/$id/_layout/results';
-import { Route as RunComputationLayoutIdLayoutDataInputsImport } from './pages/run-computation/_layout/$id/_layout/data-inputs';
 
 // Create Virtual Routes
 
@@ -52,9 +47,6 @@ const RunComputationImport = createFileRoute('/run-computation')();
 const QualityBenchmarkImport = createFileRoute('/quality-benchmark')();
 const ContributeDataImport = createFileRoute('/contribute-data')();
 const CompareDataImport = createFileRoute('/compare-data')();
-const RunComputationLayoutIdImport = createFileRoute(
-  '/run-computation/_layout/$id'
-)();
 
 // Create/Update Routes
 
@@ -151,12 +143,6 @@ const CompareDataLayoutRoute = CompareDataLayoutImport.update({
   getParentRoute: () => CompareDataRoute,
 } as any);
 
-const RunComputationLayoutIdRoute = RunComputationLayoutIdImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => RunComputationLayoutRoute,
-} as any);
-
 const RunComputationLayoutIndexRoute = RunComputationLayoutIndexImport.update({
   id: '/',
   path: '/',
@@ -248,45 +234,11 @@ const RunComputationLayoutResultsRunIdRoute =
     getParentRoute: () => RunComputationLayoutRoute,
   } as any);
 
-const RunComputationLayoutIdLayoutRoute =
-  RunComputationLayoutIdLayoutImport.update({
-    id: '/_layout',
-    getParentRoute: () => RunComputationLayoutIdRoute,
-  } as any);
-
 const QualityBenchmarkLayoutReportIdRoute =
   QualityBenchmarkLayoutReportIdImport.update({
     id: '/report/$id',
     path: '/report/$id',
     getParentRoute: () => QualityBenchmarkLayoutRoute,
-  } as any);
-
-const RunComputationLayoutIdLayoutSettingsRoute =
-  RunComputationLayoutIdLayoutSettingsImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any);
-
-const RunComputationLayoutIdLayoutRunningRoute =
-  RunComputationLayoutIdLayoutRunningImport.update({
-    id: '/running',
-    path: '/running',
-    getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any);
-
-const RunComputationLayoutIdLayoutResultsRoute =
-  RunComputationLayoutIdLayoutResultsImport.update({
-    id: '/results',
-    path: '/results',
-    getParentRoute: () => RunComputationLayoutIdLayoutRoute,
-  } as any);
-
-const RunComputationLayoutIdLayoutDataInputsRoute =
-  RunComputationLayoutIdLayoutDataInputsImport.update({
-    id: '/data-inputs',
-    path: '/data-inputs',
-    getParentRoute: () => RunComputationLayoutIdLayoutRoute,
   } as any);
 
 // Populate the FileRoutesByPath interface
@@ -503,54 +455,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QualityBenchmarkLayoutReportIdImport;
       parentRoute: typeof QualityBenchmarkLayoutImport;
     };
-    '/run-computation/_layout/$id': {
-      id: '/run-computation/_layout/$id';
-      path: '/$id';
-      fullPath: '/run-computation/$id';
-      preLoaderRoute: typeof RunComputationLayoutIdImport;
-      parentRoute: typeof RunComputationLayoutImport;
-    };
-    '/run-computation/_layout/$id/_layout': {
-      id: '/run-computation/_layout/$id/_layout';
-      path: '/$id';
-      fullPath: '/run-computation/$id';
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutImport;
-      parentRoute: typeof RunComputationLayoutIdRoute;
-    };
     '/run-computation/_layout/results/$runId': {
       id: '/run-computation/_layout/results/$runId';
       path: '/results/$runId';
       fullPath: '/run-computation/results/$runId';
       preLoaderRoute: typeof RunComputationLayoutResultsRunIdImport;
       parentRoute: typeof RunComputationLayoutImport;
-    };
-    '/run-computation/_layout/$id/_layout/data-inputs': {
-      id: '/run-computation/_layout/$id/_layout/data-inputs';
-      path: '/data-inputs';
-      fullPath: '/run-computation/$id/data-inputs';
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutDataInputsImport;
-      parentRoute: typeof RunComputationLayoutIdLayoutImport;
-    };
-    '/run-computation/_layout/$id/_layout/results': {
-      id: '/run-computation/_layout/$id/_layout/results';
-      path: '/results';
-      fullPath: '/run-computation/$id/results';
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutResultsImport;
-      parentRoute: typeof RunComputationLayoutIdLayoutImport;
-    };
-    '/run-computation/_layout/$id/_layout/running': {
-      id: '/run-computation/_layout/$id/_layout/running';
-      path: '/running';
-      fullPath: '/run-computation/$id/running';
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutRunningImport;
-      parentRoute: typeof RunComputationLayoutIdLayoutImport;
-    };
-    '/run-computation/_layout/$id/_layout/settings': {
-      id: '/run-computation/_layout/$id/_layout/settings';
-      path: '/settings';
-      fullPath: '/run-computation/$id/settings';
-      preLoaderRoute: typeof RunComputationLayoutIdLayoutSettingsImport;
-      parentRoute: typeof RunComputationLayoutIdLayoutImport;
     };
   }
 }
@@ -642,56 +552,15 @@ const QualityBenchmarkRouteChildren: QualityBenchmarkRouteChildren = {
 const QualityBenchmarkRouteWithChildren =
   QualityBenchmarkRoute._addFileChildren(QualityBenchmarkRouteChildren);
 
-interface RunComputationLayoutIdLayoutRouteChildren {
-  RunComputationLayoutIdLayoutDataInputsRoute: typeof RunComputationLayoutIdLayoutDataInputsRoute;
-  RunComputationLayoutIdLayoutResultsRoute: typeof RunComputationLayoutIdLayoutResultsRoute;
-  RunComputationLayoutIdLayoutRunningRoute: typeof RunComputationLayoutIdLayoutRunningRoute;
-  RunComputationLayoutIdLayoutSettingsRoute: typeof RunComputationLayoutIdLayoutSettingsRoute;
-}
-
-const RunComputationLayoutIdLayoutRouteChildren: RunComputationLayoutIdLayoutRouteChildren =
-  {
-    RunComputationLayoutIdLayoutDataInputsRoute:
-      RunComputationLayoutIdLayoutDataInputsRoute,
-    RunComputationLayoutIdLayoutResultsRoute:
-      RunComputationLayoutIdLayoutResultsRoute,
-    RunComputationLayoutIdLayoutRunningRoute:
-      RunComputationLayoutIdLayoutRunningRoute,
-    RunComputationLayoutIdLayoutSettingsRoute:
-      RunComputationLayoutIdLayoutSettingsRoute,
-  };
-
-const RunComputationLayoutIdLayoutRouteWithChildren =
-  RunComputationLayoutIdLayoutRoute._addFileChildren(
-    RunComputationLayoutIdLayoutRouteChildren
-  );
-
-interface RunComputationLayoutIdRouteChildren {
-  RunComputationLayoutIdLayoutRoute: typeof RunComputationLayoutIdLayoutRouteWithChildren;
-}
-
-const RunComputationLayoutIdRouteChildren: RunComputationLayoutIdRouteChildren =
-  {
-    RunComputationLayoutIdLayoutRoute:
-      RunComputationLayoutIdLayoutRouteWithChildren,
-  };
-
-const RunComputationLayoutIdRouteWithChildren =
-  RunComputationLayoutIdRoute._addFileChildren(
-    RunComputationLayoutIdRouteChildren
-  );
-
 interface RunComputationLayoutRouteChildren {
   RunComputationLayoutNewRoute: typeof RunComputationLayoutNewRoute;
   RunComputationLayoutIndexRoute: typeof RunComputationLayoutIndexRoute;
-  RunComputationLayoutIdRoute: typeof RunComputationLayoutIdRouteWithChildren;
   RunComputationLayoutResultsRunIdRoute: typeof RunComputationLayoutResultsRunIdRoute;
 }
 
 const RunComputationLayoutRouteChildren: RunComputationLayoutRouteChildren = {
   RunComputationLayoutNewRoute: RunComputationLayoutNewRoute,
   RunComputationLayoutIndexRoute: RunComputationLayoutIndexRoute,
-  RunComputationLayoutIdRoute: RunComputationLayoutIdRouteWithChildren,
   RunComputationLayoutResultsRunIdRoute: RunComputationLayoutResultsRunIdRoute,
 };
 
@@ -737,12 +606,7 @@ export interface FileRoutesByFullPath {
   '/quality-benchmark/': typeof QualityBenchmarkLayoutIndexRoute;
   '/run-computation/': typeof RunComputationLayoutIndexRoute;
   '/quality-benchmark/report/$id': typeof QualityBenchmarkLayoutReportIdRoute;
-  '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren;
   '/run-computation/results/$runId': typeof RunComputationLayoutResultsRunIdRoute;
-  '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
-  '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute;
-  '/run-computation/$id/running': typeof RunComputationLayoutIdLayoutRunningRoute;
-  '/run-computation/$id/settings': typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 export interface FileRoutesByTo {
@@ -768,12 +632,7 @@ export interface FileRoutesByTo {
   '/quality-benchmark/compare': typeof QualityBenchmarkLayoutCompareRoute;
   '/run-computation/new': typeof RunComputationLayoutNewRoute;
   '/quality-benchmark/report/$id': typeof QualityBenchmarkLayoutReportIdRoute;
-  '/run-computation/$id': typeof RunComputationLayoutIdLayoutRouteWithChildren;
   '/run-computation/results/$runId': typeof RunComputationLayoutResultsRunIdRoute;
-  '/run-computation/$id/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
-  '/run-computation/$id/results': typeof RunComputationLayoutIdLayoutResultsRoute;
-  '/run-computation/$id/running': typeof RunComputationLayoutIdLayoutRunningRoute;
-  '/run-computation/$id/settings': typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 export interface FileRoutesById {
@@ -808,13 +667,7 @@ export interface FileRoutesById {
   '/quality-benchmark/_layout/': typeof QualityBenchmarkLayoutIndexRoute;
   '/run-computation/_layout/': typeof RunComputationLayoutIndexRoute;
   '/quality-benchmark/_layout/report/$id': typeof QualityBenchmarkLayoutReportIdRoute;
-  '/run-computation/_layout/$id': typeof RunComputationLayoutIdRouteWithChildren;
-  '/run-computation/_layout/$id/_layout': typeof RunComputationLayoutIdLayoutRouteWithChildren;
   '/run-computation/_layout/results/$runId': typeof RunComputationLayoutResultsRunIdRoute;
-  '/run-computation/_layout/$id/_layout/data-inputs': typeof RunComputationLayoutIdLayoutDataInputsRoute;
-  '/run-computation/_layout/$id/_layout/results': typeof RunComputationLayoutIdLayoutResultsRoute;
-  '/run-computation/_layout/$id/_layout/running': typeof RunComputationLayoutIdLayoutRunningRoute;
-  '/run-computation/_layout/$id/_layout/settings': typeof RunComputationLayoutIdLayoutSettingsRoute;
 }
 
 export interface FileRouteTypes {
@@ -846,12 +699,7 @@ export interface FileRouteTypes {
     | '/quality-benchmark/'
     | '/run-computation/'
     | '/quality-benchmark/report/$id'
-    | '/run-computation/$id'
-    | '/run-computation/results/$runId'
-    | '/run-computation/$id/data-inputs'
-    | '/run-computation/$id/results'
-    | '/run-computation/$id/running'
-    | '/run-computation/$id/settings';
+    | '/run-computation/results/$runId';
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
@@ -876,12 +724,7 @@ export interface FileRouteTypes {
     | '/quality-benchmark/compare'
     | '/run-computation/new'
     | '/quality-benchmark/report/$id'
-    | '/run-computation/$id'
-    | '/run-computation/results/$runId'
-    | '/run-computation/$id/data-inputs'
-    | '/run-computation/$id/results'
-    | '/run-computation/$id/running'
-    | '/run-computation/$id/settings';
+    | '/run-computation/results/$runId';
   id:
     | '__root__'
     | '/'
@@ -914,13 +757,7 @@ export interface FileRouteTypes {
     | '/quality-benchmark/_layout/'
     | '/run-computation/_layout/'
     | '/quality-benchmark/_layout/report/$id'
-    | '/run-computation/_layout/$id'
-    | '/run-computation/_layout/$id/_layout'
-    | '/run-computation/_layout/results/$runId'
-    | '/run-computation/_layout/$id/_layout/data-inputs'
-    | '/run-computation/_layout/$id/_layout/results'
-    | '/run-computation/_layout/$id/_layout/running'
-    | '/run-computation/_layout/$id/_layout/settings';
+    | '/run-computation/_layout/results/$runId';
   fileRoutesById: FileRoutesById;
 }
 
@@ -1054,7 +891,6 @@ export const routeTree = rootRoute
       "children": [
         "/run-computation/_layout/new",
         "/run-computation/_layout/",
-        "/run-computation/_layout/$id",
         "/run-computation/_layout/results/$runId"
       ]
     },
@@ -1124,42 +960,9 @@ export const routeTree = rootRoute
       "filePath": "quality-benchmark/_layout/report/$id.tsx",
       "parent": "/quality-benchmark/_layout"
     },
-    "/run-computation/_layout/$id": {
-      "filePath": "run-computation/_layout/$id",
-      "parent": "/run-computation/_layout",
-      "children": [
-        "/run-computation/_layout/$id/_layout"
-      ]
-    },
-    "/run-computation/_layout/$id/_layout": {
-      "filePath": "run-computation/_layout/$id/_layout.tsx",
-      "parent": "/run-computation/_layout/$id",
-      "children": [
-        "/run-computation/_layout/$id/_layout/data-inputs",
-        "/run-computation/_layout/$id/_layout/results",
-        "/run-computation/_layout/$id/_layout/running",
-        "/run-computation/_layout/$id/_layout/settings"
-      ]
-    },
     "/run-computation/_layout/results/$runId": {
       "filePath": "run-computation/_layout/results/$runId.tsx",
       "parent": "/run-computation/_layout"
-    },
-    "/run-computation/_layout/$id/_layout/data-inputs": {
-      "filePath": "run-computation/_layout/$id/_layout/data-inputs.tsx",
-      "parent": "/run-computation/_layout/$id/_layout"
-    },
-    "/run-computation/_layout/$id/_layout/results": {
-      "filePath": "run-computation/_layout/$id/_layout/results.tsx",
-      "parent": "/run-computation/_layout/$id/_layout"
-    },
-    "/run-computation/_layout/$id/_layout/running": {
-      "filePath": "run-computation/_layout/$id/_layout/running.tsx",
-      "parent": "/run-computation/_layout/$id/_layout"
-    },
-    "/run-computation/_layout/$id/_layout/settings": {
-      "filePath": "run-computation/_layout/$id/_layout/settings.tsx",
-      "parent": "/run-computation/_layout/$id/_layout"
     }
   }
 }
